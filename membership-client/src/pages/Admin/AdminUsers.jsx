@@ -1,18 +1,43 @@
 import { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import AdminSidebar from "../components/AdminSidebar";
+import { useNavigate } from "react-router-dom";
+import axios from "../../utils/axiosInstance";
+import AdminSidebar from "../../components/AdminSidebar";
 
 export default function AdminUsers() {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
-  // Mock data for now
   useEffect(() => {
-    setUsers([
-      { id: 1, name: "Alice Johnson", email: "alice@email.com", role: "user", status: "active" },
-      { id: 2, name: "Mark Stone", email: "mark@email.com", role: "user", status: "inactive" },
-      { id: 3, name: "Sarah Lee", email: "sarah@email.com", role: "user", status: "active" },
-    ]);
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get("/subscription/all"); // getAllSubscriptions endpoint
+        const allSubs = res.data;
+
+        // Remove admins (if needed)
+        const realSubs = allSubs.filter(
+          (sub) => sub.email !== "admin@domain.com"
+        );
+
+        // Deduplicate users
+        const userMap = new Map();
+        realSubs.forEach((sub) => {
+          if (!userMap.has(sub.user_id)) {
+            userMap.set(sub.user_id, {
+              id: sub.user_id,
+              name: sub.name,
+              email: sub.email,
+              created_at: sub.created_at,
+            });
+          }
+        });
+
+        setUsers(Array.from(userMap.values()));
+      } catch (err) {
+        console.error("Failed to fetch users:", err);
+      }
+    };
+
+    fetchUsers();
   }, []);
 
   const handleSignOut = () => {
@@ -32,17 +57,13 @@ export default function AdminUsers() {
               <tr className="border-b">
                 <th className="py-2">Name</th>
                 <th className="py-2">Email</th>
-                <th className="py-2">Role</th>
-                <th className="py-2">Status</th>
               </tr>
             </thead>
             <tbody>
-              {users.map(user => (
+              {users.map((user) => (
                 <tr key={user.id} className="border-b last:border-none">
                   <td className="py-2">{user.name}</td>
                   <td className="py-2">{user.email}</td>
-                  <td className="py-2">{user.role}</td>
-                  <td className="py-2">{user.status}</td>
                 </tr>
               ))}
             </tbody>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import AdminSidebar from "../components/AdminSidebar";
+import axios from "../../utils/axiosInstance"; // Make sure it includes admin auth headers
+import AdminSidebar from "../../components/AdminSidebar";
 
 export default function AdminDashboard() {
   const [adminName, setAdminName] = useState("Admin");
@@ -9,6 +10,7 @@ export default function AdminDashboard() {
     revenue: 0,
   });
   const [recentUsers, setRecentUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -16,15 +18,49 @@ export default function AdminDashboard() {
       const name = userData.name.charAt(0).toUpperCase() + userData.name.slice(1);
       setAdminName(name);
     }
-
-    // Mock data
-    setStats({ totalUsers: 82, activeSubscriptions: 45, revenue: 1240 });
-    setRecentUsers([
-      { id: 1, name: "Alice Johnson", email: "alice@email.com" },
-      { id: 2, name: "Mark Stone", email: "mark@email.com" },
-      { id: 3, name: "Sarah Lee", email: "sarah@email.com" },
-    ]);
+  
+    const fetchAdminData = async () => {
+      try {
+        const res = await axios.get("/subscription/all"); // getAllSubscriptions endpoint
+        const subscriptions = res.data;
+  
+        // Filter out the admin user(s)
+        const realUsersSubs = subscriptions.filter(sub => sub.role !== 'admin'); // <-- you need a 'role' column or filter by id
+  
+        // Total users (unique)
+        const uniqueUsers = Array.from(new Set(realUsersSubs.map(sub => sub.user_id)));
+        const totalUsers = uniqueUsers.length;
+  
+        // Active subscriptions
+        const today = new Date();
+        const activeSubscriptions = realUsersSubs.filter(sub => new Date(sub.end_date) >= today).length;
+  
+        // Recent users (deduplicated by user_id)
+        const recentUsersMap = new Map();
+        realUsersSubs
+          .sort((a, b) => new Date(b.start_date) - new Date(a.start_date))
+          .forEach(sub => {
+            if (!recentUsersMap.has(sub.user_id)) {
+              recentUsersMap.set(sub.user_id, { id: sub.user_id, name: sub.name, email: sub.email });
+            }
+          });
+  
+        const recentUsers = Array.from(recentUsersMap.values()).slice(0, 5);
+  
+        setStats({ totalUsers, activeSubscriptions});
+        setRecentUsers(recentUsers);
+      } catch (err) {
+        console.error("Failed to fetch subscriptions:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchAdminData();
   }, []);
+  
+
+  if (loading) return <div className="p-10">Loading dashboard...</div>;
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -44,11 +80,6 @@ export default function AdminDashboard() {
             <p className="text-gray-500 text-sm">Active Subscriptions</p>
             <h3 className="text-3xl font-bold">{stats.activeSubscriptions}</h3>
           </div>
-
-          <div className="bg-white shadow p-6 rounded-xl">
-            <p className="text-gray-500 text-sm">Total Revenue</p>
-            <h3 className="text-3xl font-bold">${stats.revenue}</h3>
-          </div>
         </div>
 
         {/* Recent Users Table */}
@@ -64,8 +95,8 @@ export default function AdminDashboard() {
             <tbody>
               {recentUsers.map(user => (
                 <tr key={user.id} className="border-b last:border-none">
-                  <td className="py-2">{user.name}</td>
-                  <td className="py-2">{user.email}</td>
+                  <td className="py-2 text-black ">{user.name}</td>
+                  <td className="py-2 text-black  ">{user.email}</td>
                 </tr>
               ))}
             </tbody>

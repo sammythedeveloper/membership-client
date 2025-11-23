@@ -64,21 +64,21 @@ export default function BrowseMembership() {
   }, [navigate]);
 
   const handleSubscribe = async (plan) => {
-    setLoadingPlan(true);
+    setLoadingPlan(plan.activity);
     setMessage("");
 
     try {
       const res = await axios.post("/subscription/checkout", {
         activity: plan.activity,
-        duration: plan.duration, // <-- send duration here
+        duration: plan.duration,
       });
 
       window.location.href = res.data.url;
     } catch (err) {
-      console.error(err);
+      console.error("Checkout error →", err);
       setMessage("Failed to start checkout. Try again later.");
     } finally {
-      setLoadingPlan(false);
+      setLoadingPlan(null);
     }
   };
 

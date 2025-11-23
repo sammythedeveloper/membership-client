@@ -5,11 +5,11 @@ import SignUp from "./pages/Auth/SignUp";
 import Dashboard from "./pages/User/Dashboard";
 import BrowseMembership from "./pages/User/BrowseMembership";
 import CancelSubscription from "./pages/User/CancelSubscription";
-import AdminDashboard from "./pages/AdminDashboard";
-import AdminUsers from "./pages/AdminUsers";
-import AdminSubscriptions from "./pages/AdminSubscription";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AdminUsers from "./pages/Admin/AdminUsers";
+import AdminSubscriptions from "./pages/Admin/AdminSubscription";
 import RoleRoute from "./components/RoleRoute";
-import AdminSettings from "./pages/AdminSettings";
+import AdminSettings from "./pages/Admin/AdminSettings";
 import About from "./pages/User/About";
 
 export default function App() {
