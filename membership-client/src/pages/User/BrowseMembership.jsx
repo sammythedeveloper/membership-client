@@ -45,7 +45,6 @@
 //   },
 // ];
 
-
 // export default function BrowseMembership() {
 //   const [user, setUser] = useState(null);
 //   const [loadingPlan, setLoadingPlan] = useState(null);
@@ -170,8 +169,7 @@ const availablePlans = [
     description:
       "For casual hoopers learning shooting, dribbling, and footwork fundamentals.",
     frequency: "3–4 workouts/week",
-    accommodations:
-      "Beginner programs, drill library, structured weekly plans",
+    accommodations: "Beginner programs, drill library, structured weekly plans",
     trial: "7-day free trial",
     cancel: "Cancel anytime",
     tier: "BASIC",
@@ -195,10 +193,7 @@ const demoCoaches = [
     name: "Coach Mike",
     avatar: "/1.png", // put your local image or URL
     status: "Head Coach - Youth Basketball",
-    accomplishments: [
-      "3x Regional Champion",
-      "Developed 50+ beginner players",
-    ],
+    accomplishments: ["3x Regional Champion", "Developed 50+ beginner players"],
   },
   {
     name: "Coach Sarah",
@@ -228,7 +223,6 @@ const demoCoaches = [
     ],
   },
 ];
-
 
 export default function BrowseMembership() {
   const [user, setUser] = useState(null);
@@ -362,33 +356,32 @@ export default function BrowseMembership() {
       </main>
 
       <section className="bg-gray-100 py-10 px-4 sm:px-10">
-  <h2 className="text-3xl sm:text-4xl font-extralight mb-8 text-center">
-    Meet Our Coaches
-  </h2>
+        <h2 className="text-3xl sm:text-4xl font-extralight mb-8 text-center">
+          Meet Our Coaches
+        </h2>
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-    {demoCoaches.map((coach, idx) => (
-      <div
-        key={idx}
-        className="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
-      >
-        <img
-          src={coach.avatar}
-          alt={coach.name}
-          className="w-24 h-24 rounded-full mb-4 object-cover"
-        />
-        <h3 className="text-xl font-semibold mb-1">{coach.name}</h3>
-        <p className="text-gray-600 mb-2">{coach.status}</p>
-        <ul className="list-disc list-inside text-gray-700">
-          {coach.accomplishments.map((acc, i) => (
-            <li key={i}>{acc}</li>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {demoCoaches.map((coach, idx) => (
+            <div
+              key={idx}
+              className="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
+            >
+              <img
+                src={coach.avatar}
+                alt={coach.name}
+                className="w-24 h-24 rounded-full mb-4 object-cover"
+              />
+              <h3 className="text-xl font-semibold mb-1">{coach.name}</h3>
+              <p className="text-gray-600 mb-2">{coach.status}</p>
+              <ul className="list-disc list-inside text-gray-700">
+                {coach.accomplishments.map((acc, i) => (
+                  <li key={i}>{acc}</li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ul>
-      </div>
-    ))}
-  </div>
-</section>
-
+        </div>
+      </section>
 
       <Footer />
     </div>
