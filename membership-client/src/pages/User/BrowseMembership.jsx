@@ -8,8 +8,8 @@ import { FaBasketballBall, FaCheckCircle } from "react-icons/fa";
 const availablePlans = [
   {
     activity: "Free trial",
-    duration: "0",
-    price: "Free",
+    duration: "1",
+    price: "$0/month",
     description:
       "Try sample drills and workouts to see what our basketball training system offers.",
     frequency: "Limited access",
