@@ -3,51 +3,81 @@ import axios from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Footer from "../Footer";
+import { FaBasketballBall, FaCheckCircle } from "react-icons/fa";
 
 const availablePlans = [
   {
-    activity: "Art & Sketch Membership",
+    activity: "Free trial",
+    duration: "0",
+    price: "Free",
+    description:
+      "Try sample drills and workouts to see what our basketball training system offers.",
+    frequency: "Limited access",
+    accommodations: "Basic skill drills & videos",
+    trial: "7-day free access",
+    cancel: "No payment required",
+    tier: "FREE",
+  },
+  {
+    activity: "Beginner players plan",
     duration: "1",
-    price: "$30/month",
-    description:
-      "Engage with fellow artists, sketch weekly, learn new techniques, and share your artwork in a collaborative environment.",
-    frequency: "Weekly sessions (4 per month)",
-    accommodations: "Materials provided: sketch pads, pencils, and colors",
-    trial: "7-day free trial",
-    cancel: "Cancel anytime before the next billing cycle",
-  },
-  {
-    activity: "Book Club Membership",
-    duration: "3",
-    price: "$25/month",
-    description:
-      "Join our monthly book discussions, get access to curated reading lists, and interact with other book lovers.",
-    frequency: "Monthly meetups",
-    accommodations: "Book materials included",
-    trial: "30-day free trial",
-    cancel: "Cancel anytime before next month",
-  },
-  {
-    activity: "Basketball Training Membership",
-    duration: "6",
-    price: "$50/month",
-    description:
-      "Train with professional coaches, participate in drills and games, and improve your basketball skills.",
-    frequency: "Twice a week",
-    accommodations: "Access to gym and training equipment",
-    trial: "First session free",
-    cancel: "Cancel anytime with 7 days notice",
-  },
-  {
-    activity: "Walking Club Membership",
-    duration: "12",
     price: "$15/month",
     description:
-      "Join our weekly walking sessions in scenic areas, track your fitness, and socialize with fellow walkers.",
-    frequency: "Weekly walks",
-    accommodations: "Guided routes and fitness tracking",
+      "For casual hoopers learning shooting, dribbling, and footwork fundamentals.",
+    frequency: "3–4 workouts/week",
+    accommodations: "Beginner programs, drill library, structured weekly plans",
     trial: "7-day free trial",
     cancel: "Cancel anytime",
+    tier: "BASIC",
+  },
+  {
+    activity: "Pro Players Plan",
+    duration: "1",
+    price: "$25/month",
+    description:
+      "For serious high school and college players focused on performance and game-level skills.",
+    frequency: "5–6 workouts/week",
+    accommodations:
+      "All programs, position-specific training, progress tracking",
+    trial: "7-day free trial",
+    cancel: "Cancel anytime",
+    tier: "PRO",
+  },
+];
+
+const demoCoaches = [
+  {
+    name: "Coach Mike",
+    avatar: "/1.png",
+    status: "Head Coach - Youth Basketball",
+    accomplishments: ["3x Regional Champion", "Developed 50+ beginner players"],
+  },
+  {
+    name: "Coach Sarah",
+    avatar: "/3.png",
+    status: "Assistant Coach - Local High School",
+    accomplishments: [
+      "Trained 100+ beginner players",
+      "Organized community basketball camps",
+    ],
+  },
+  {
+    name: "Coach Jordan",
+    avatar: "/2.png",
+    status: "Former College Athlete & Pro Trainer",
+    accomplishments: [
+      "Trained 20+ high school and college athletes",
+      "Position-specific skill development expert",
+    ],
+  },
+  {
+    name: "Coach Emily",
+    avatar: "/4.png",
+    status: "Assistant Coach - City Basketball League",
+    accomplishments: [
+      "Developed youth skill programs",
+      "Organized summer basketball camps",
+    ],
   },
 ];
 
@@ -135,7 +165,13 @@ export default function BrowseMembership() {
               <button
                 onClick={() => handleSubscribe(plan)}
                 disabled={loadingPlan === plan.activity}
-                className="bg-rose-950 hover:bg-black text-white py-3 px-6 rounded-xl font-extralight transition-all duration-300"
+                className={`w-full py-3 rounded-xl font-medium text-white transition-colors duration-300 ${
+                  plan.tier === "PRO"
+                    ? "bg-red-600 hover:bg-red-700"
+                    : plan.tier === "BASIC"
+                    ? "bg-yellow-500 hover:bg-yellow-600"
+                    : "bg-gray-500 hover:bg-gray-600"
+                }`}
               >
                 {loadingPlan === plan.activity ? "Processing..." : "Subscribe"}
               </button>
@@ -144,7 +180,36 @@ export default function BrowseMembership() {
         </div>
       </main>
 
+      <section className="bg-gray-100 py-10 px-4 sm:px-10">
+        <h2 className="text-3xl sm:text-4xl font-extralight mb-8 text-center">
+          Meet Our Coaches
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {demoCoaches.map((coach, idx) => (
+            <div
+              key={idx}
+              className="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
+            >
+              <img
+                src={coach.avatar}
+                alt={coach.name}
+                className="w-24 h-24 rounded-full mb-4 object-cover"
+              />
+              <h3 className="text-xl font-semibold mb-1">{coach.name}</h3>
+              <p className="text-gray-600 mb-2">{coach.status}</p>
+              <ul className="list-disc list-inside text-gray-700">
+                {coach.accomplishments.map((acc, i) => (
+                  <li key={i}>{acc}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
 }
+
