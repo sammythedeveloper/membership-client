@@ -9,7 +9,7 @@ const availablePlans = [
   {
     activity: "Free trial",
     duration: "1",
-    price: "$0/month",
+    price: "$1/month",
     description:
       "Try sample drills and workouts to see what our basketball training system offers.",
     frequency: "Limited access",
@@ -35,13 +35,26 @@ const availablePlans = [
     duration: "1",
     price: "$25/month",
     description:
-      "For serious high school and college players focused on performance and game-level skills.",
+      "For serious experianced players focused on performance and game-level skills.",
     frequency: "5–6 workouts/week",
     accommodations:
       "All programs, position-specific training, progress tracking",
     trial: "7-day free trial",
     cancel: "Cancel anytime",
     tier: "PRO",
+  },
+  {
+    activity: "Challenge Plan",
+    duration: "1",
+    price: "$25/month",
+    description:
+      "Push your limits with weekly skill challenges and mini-tournaments. Track progress and compete with fellow members",
+    frequency: "4–5 workouts/week + challenges",
+    accommodations:
+      "Challenge drills, leaderboard tracking, progress badges",
+    trial: "7-day free trial",
+    cancel: "Cancel anytime",
+    tier: "Challenge Plan",
   },
 ];
 
@@ -170,6 +183,8 @@ export default function BrowseMembership() {
                     ? "bg-red-600 hover:bg-red-700"
                     : plan.tier === "BASIC"
                     ? "bg-yellow-500 hover:bg-yellow-600"
+                    : plan.tier === "Challenge Plan"
+                    ? "bg-blue-400 hover:bg-blue-500"
                     : "bg-gray-500 hover:bg-gray-600"
                 }`}
               >
