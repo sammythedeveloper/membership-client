@@ -6,42 +6,48 @@
 
 // const availablePlans = [
 //   {
-//     activity: "Free Trial",
-//     duration: "0",
-//     price: "Free",
+//     activity: "Art & Sketch Membership",
+//     duration: "1",
+//     price: "$30/month",
 //     description:
-//       "Get a taste of our basketball training system with limited drills and sample workouts designed to introduce core fundamentals.",
-//     frequency: "Limited access (trial content)",
-//     accommodations: "Basic skill drills & sample videos",
-//     trial: "7-day free access",
-//     cancel: "No payment required",
-//     tier: "FREE",
+//       "Engage with fellow artists, sketch weekly, learn new techniques, and share your artwork in a collaborative environment.",
+//     frequency: "Weekly sessions (4 per month)",
+//     accommodations: "Materials provided: sketch pads, pencils, and colors",
+//     trial: "7-day free trial",
+//     cancel: "Cancel anytime before the next billing cycle",
 //   },
 //   {
-//     activity: "Beginner Player Plan",
-//     duration: "1",
-//     price: "$19/month",
+//     activity: "Book Club Membership",
+//     duration: "3",
+//     price: "$25/month",
 //     description:
-//       "Perfect for beginners and casual hoopers looking to build strong fundamentals in shooting, ball handling, and footwork.",
-//     frequency: "3–4 workouts per week",
-//     accommodations:
-//       "Beginner programs, drill library, structured weekly plans",
-//     trial: "7-day free trial",
-//     cancel: "Cancel anytime",
-//     tier: "BASIC",
+//       "Join our monthly book discussions, get access to curated reading lists, and interact with other book lovers.",
+//     frequency: "Monthly meetups",
+//     accommodations: "Book materials included",
+//     trial: "30-day free trial",
+//     cancel: "Cancel anytime before next month",
 //   },
 //   {
-//     activity: "Pro Player Plan",
-//     duration: "1",
-//     price: "$39/month",
+//     activity: "Basketball Training Membership",
+//     duration: "6",
+//     price: "$50/month",
 //     description:
-//       "Designed for serious players, high school, and college athletes focused on performance, consistency, and game-level improvement.",
-//     frequency: "5–6 workouts per week",
-//     accommodations:
-//       "All programs, position-based training, progress tracking",
+//       "Train with professional coaches, participate in drills and games, and improve your basketball skills.",
+//     frequency: "Twice a week",
+//     accommodations: "Access to gym and training equipment",
+//     trial: "First session free",
+//     cancel: "Cancel anytime with 7 days notice",
+//   },
+//   {
+//     activity: "Walking Club Membership",
+//     duration: "12",
+//     price: "$15/month",
+//     description:
+//       "Join our weekly walking sessions in scenic areas, track your fitness, and socialize with fellow walkers.",
+//     frequency: "Weekly walks",
+//     accommodations: "Guided routes and fitness tracking",
 //     trial: "7-day free trial",
 //     cancel: "Cancel anytime",
-//     tier: "PRO",
 //   },
 // ];
 
@@ -188,10 +194,11 @@ const availablePlans = [
     tier: "PRO",
   },
 ];
+
 const demoCoaches = [
   {
     name: "Coach Mike",
-    avatar: "/1.png", // put your local image or URL
+    avatar: "/1.png",
     status: "Head Coach - Youth Basketball",
     accomplishments: ["3x Regional Champion", "Developed 50+ beginner players"],
   },
@@ -241,15 +248,8 @@ export default function BrowseMembership() {
     setMessage("");
 
     try {
-      // Free plan shortcut
-      if (plan.tier === "FREE") {
-        await axios.post("/subscription/free");
-        navigate("/dashboard");
-        return;
-      }
-
       const res = await axios.post("/subscription/checkout", {
-        tier: plan.tier,
+        activity: plan.activity,
         duration: plan.duration,
       });
 
@@ -271,8 +271,8 @@ export default function BrowseMembership() {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar userName={firstName} />
 
-      <main className="flex-grow px-4 sm:px-10 py-10">
-        <h2 className="text-3xl sm:text-4xl font-extralight mb-10 text-center">
+      <main className="flex-grow p-10">
+        <h2 className="text-3xl font-extralight mb-8 text-center">
           Browse Membership Plans
         </h2>
 
@@ -282,57 +282,36 @@ export default function BrowseMembership() {
           </p>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {availablePlans.map((plan, idx) => (
             <div
               key={idx}
-              className={`bg-white shadow-md rounded-3xl p-8 flex flex-col justify-between transition-transform duration-300 hover:scale-105 hover:shadow-2xl ${
-                plan.tier === "PRO"
-                  ? "border-2 border-red-600"
-                  : plan.tier === "BASIC"
-                  ? "border-2 border-yellow-500"
-                  : "border border-gray-300"
-              }`}
+              className="bg-white shadow-lg rounded-2xl p-8 flex flex-col justify-between transform transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
             >
-              {/* Tier badge */}
-              <div className="flex items-center mb-4">
-                <FaBasketballBall className="text-red-600 mr-2" />
-                <span
-                  className={`uppercase font-bold text-sm ${
-                    plan.tier === "PRO"
-                      ? "text-red-600"
-                      : plan.tier === "BASIC"
-                      ? "text-yellow-500"
-                      : "text-gray-500"
-                  }`}
-                >
-                  {plan.tier}
-                </span>
-              </div>
-
-              <h3 className="text-2xl font-semibold mb-3">{plan.activity}</h3>
-              <p className="text-gray-800 mb-2 font-medium">{plan.price}</p>
-              <p className="text-gray-700 mb-2">{plan.description}</p>
-
-              <ul className="mb-4 space-y-1 text-gray-700">
-                <li className="flex items-center">
-                  <FaCheckCircle className="text-green-500 mr-2" />
-                  {plan.frequency}
-                </li>
-                <li className="flex items-center">
-                  <FaCheckCircle className="text-green-500 mr-2" />
-                  {plan.accommodations}
-                </li>
-                <li className="flex items-center">
-                  <FaCheckCircle className="text-green-500 mr-2" />
-                  {plan.trial}
-                </li>
-                <li className="flex items-center">
-                  <FaCheckCircle className="text-green-500 mr-2" />
-                  {plan.cancel}
-                </li>
-              </ul>
-
+              <h3 className="text-2xl font-extralight mb-3 text-red-800">
+                {plan.activity}
+              </h3>
+              <p className="text-black mb-2">
+                <strong>Price:</strong> {plan.price}
+              </p>
+              <p className="text-black mb-2">
+                <strong>Duration:</strong> {plan.duration} month(s)
+              </p>
+              <p className="text-black mb-2">
+                <strong>Description:</strong> {plan.description}
+              </p>
+              <p className="text-black mb-2">
+                <strong>Frequency:</strong> {plan.frequency}
+              </p>
+              <p className="text-black mb-2">
+                <strong>Accommodations:</strong> {plan.accommodations}
+              </p>
+              <p className="text-black mb-2">
+                <strong>Trial:</strong> {plan.trial}
+              </p>
+              <p className="text-black mb-4">
+                <strong>Cancel Policy:</strong> {plan.cancel}
+              </p>
               <button
                 onClick={() => handleSubscribe(plan)}
                 disabled={loadingPlan === plan.activity}
@@ -344,11 +323,7 @@ export default function BrowseMembership() {
                     : "bg-gray-500 hover:bg-gray-600"
                 }`}
               >
-                {loadingPlan === plan.activity
-                  ? "Processing..."
-                  : plan.tier === "FREE"
-                  ? "Start Free Trial"
-                  : "Subscribe"}
+                {loadingPlan === plan.activity ? "Processing..." : "Subscribe"}
               </button>
             </div>
           ))}
