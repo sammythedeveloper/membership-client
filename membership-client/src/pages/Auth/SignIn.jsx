@@ -53,7 +53,7 @@ const SignIn = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <div className="flex-grow flex flex-col md:flex-row items-center justify-center px-4 md:px-12 gap-10">
+      <div className="min-h-screen bg-gradient-to-r from-rose-950 to-red-700 flex flex-col md:flex-row items-center justify-center px-6 md:px-20 gap-10">
         <div className="w-full md:w-1/2 max-w-md text-black flex flex-col justify-center space-y-4">
           <h2 className="text-5xl font-bold mb-4">Welcome to HoopMaster!</h2>
           <p className="text-black">
@@ -67,7 +67,7 @@ const SignIn = () => {
             your basketball skills!
           </p>
         </div>
-        <div className="bg-rose-950 w-full max-w-md p-8 rounded-2xl shadow-xl border border-gray-800 mb-10">
+        <div  className="bg-gradient-to-r from-red-700 to-rose-950 w-full md:w-1/2 max-w-md p-8 rounded-2xl shadow-xl border border-gray-800">
           <h2 className="text-3xl font-bold text-white text-center mb-6">
             Welcome Back
           </h2>
@@ -108,7 +108,7 @@ const SignIn = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-red-50 hover:bg-black hover:text-white transition py-3 rounded-lg text-sm font-medium disabled:opacity-50"
+              className="w-full bg-red-50 hover:bg-yellow-300 hover:text-black transition py-3 rounded-lg text-sm font-medium disabled:opacity-50"
             >
               {loading ? "Signing In..." : "Sign In"}
             </button>

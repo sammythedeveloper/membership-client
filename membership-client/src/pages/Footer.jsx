@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-gray-900 text-gray-200 py-8 mt-auto">
+    <footer className="w-full bg-black text-gray-200 py-8 mt-auto">
       <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
         <p className="text-sm">
           &copy; {new Date().getFullYear()} Membership Portal. All rights
