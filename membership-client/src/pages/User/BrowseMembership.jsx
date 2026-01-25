@@ -3,7 +3,6 @@ import axios from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Footer from "../Footer";
-import { FaBasketballBall, FaCheckCircle } from "react-icons/fa";
 
 const availablePlans = [
   {

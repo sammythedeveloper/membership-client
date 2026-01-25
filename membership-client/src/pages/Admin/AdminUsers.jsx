@@ -40,11 +40,11 @@ export default function AdminUsers() {
     fetchUsers();
   }, []);
 
-  const handleSignOut = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    navigate("/signin");
-  };
+  // const handleSignOut = () => {
+  //   localStorage.removeItem("user");
+  //   localStorage.removeItem("token");
+  //   navigate("/signin");
+  // };
 
   return (
     <div className="flex min-h-screen bg-gray-100">
