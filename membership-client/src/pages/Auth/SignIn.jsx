@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Footer from "../Footer";
-import axios from "../../utils/axiosInstance"; // ✅ use your axios instance
+import axios from "../../utils/axiosInstance";
 
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -51,9 +53,21 @@ const SignIn = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <div className="flex-grow flex items-center justify-center px-4">
-        <div className="bg-rose-950 w-full max-w-md p-8 rounded-2xl shadow-xl border border-gray-800">
-
+      <div className="flex-grow flex flex-col md:flex-row items-center justify-center px-4 md:px-12 gap-10">
+        <div className="w-full md:w-1/2 max-w-md text-black flex flex-col justify-center space-y-4">
+          <h2 className="text-5xl font-bold mb-4">Welcome to HoopMaster!</h2>
+          <p className="text-black">
+            Join our basketball training membership app where your skills meet
+            real practice. Based on your schedule and selected skill plan,
+            you'll train with sessions organized by the community.
+          </p>
+          <p className="text-black">
+            Track your progress, improve your game, and connect with other
+            players. Every session is crafted to help you level up and master
+            your basketball skills!
+          </p>
+        </div>
+        <div className="bg-rose-950 w-full max-w-md p-8 rounded-2xl shadow-xl border border-gray-800 mb-10">
           <h2 className="text-3xl font-bold text-white text-center mb-6">
             Welcome Back
           </h2>
@@ -70,14 +84,26 @@ const SignIn = () => {
               className="w-full px-4 py-3 text-black rounded-lg focus:ring-2 focus:ring-blue-600 outline-none"
             />
 
-            <input
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={handleChange}
-              className="w-full px-4 py-3 text-black rounded-lg focus:ring-2 focus:ring-blue-600 outline-none"
-            />
+            <div className="relative">
+              <input
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                value={form.password}
+                onChange={handleChange}
+                className="w-full px-4 py-3 text-black rounded-lg focus:ring-2 focus:ring-blue-600 outline-none"
+              />
+              <div
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-600"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <AiFillEyeInvisible size={20} />
+                ) : (
+                  <AiFillEye size={20} />
+                )}
+              </div>
+            </div>
 
             <button
               type="submit"
