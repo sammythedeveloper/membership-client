@@ -93,7 +93,7 @@ export default function Dashboard() {
                       {sub.activity}
                     </h3>
                     <p className="text-black mb-1 truncate">
-                      <strong>Duration:</strong> {sub.duration} days
+                      <strong>Duration:</strong> {sub.duration} Month
                     </p>
                     <p className="text-black mb-1 truncate">
                       <strong>Start Date:</strong>{" "}
