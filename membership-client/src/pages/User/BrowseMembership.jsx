@@ -7,8 +7,8 @@ import Footer from "../Footer";
 const availablePlans = [
   {
     activity: "Free trial",
-    duration: "1",
-    price: "$1/month",
+    duration: "7 days",
+    price: "$0",
     description:
       "Try sample drills and workouts to see what our basketball training system offers.",
     frequency: "Limited access",
@@ -18,42 +18,41 @@ const availablePlans = [
     tier: "FREE",
   },
   {
-    activity: "Beginner players plan",
-    duration: "1",
-    price: "$15/month",
+    activity: "Beginner players membership",
+    duration: "1 month",
+    price: "$15 (one-time)",
     description:
       "For casual hoopers learning shooting, dribbling, and footwork fundamentals.",
     frequency: "3–4 workouts/week",
     accommodations: "Beginner programs, drill library, structured weekly plans",
     trial: "7-day free trial",
-    cancel: "Cancel anytime",
+    cancel: "Access expires after 1 month",
     tier: "BASIC",
   },
   {
-    activity: "Pro Players Plan",
-    duration: "1",
-    price: "$25/month",
+    activity: "Pro players membership",
+    duration: "1 month",
+    price: "$25 (one-time)",
     description:
-      "For serious experianced players focused on performance and game-level skills.",
+      "For serious experienced players focused on performance and game-level skills.",
     frequency: "5–6 workouts/week",
     accommodations:
       "All programs, position-specific training, progress tracking",
     trial: "7-day free trial",
-    cancel: "Cancel anytime",
+    cancel: "Access expires after 1 month",
     tier: "PRO",
   },
   {
-    activity: "Challenge Plan",
-    duration: "1",
-    price: "$25/month",
+    activity: "Challenge membership",
+    duration: "1 month",
+    price: "$25 (one-time)",
     description:
-      "Push your limits with weekly skill challenges and mini-tournaments. Track progress and compete with fellow members",
+      "Push your limits with weekly skill challenges and mini-tournaments. Track progress and compete with fellow members.",
     frequency: "4–5 workouts/week + challenges",
-    accommodations:
-      "Challenge drills, leaderboard tracking, progress badges",
+    accommodations: "Challenge drills, leaderboard tracking, progress badges",
     trial: "7-day free trial",
-    cancel: "Cancel anytime",
-    tier: "Challenge Plan",
+    cancel: "Access expires after 1 month",
+    tier: "CHALLENGE",
   },
 ];
 
@@ -226,4 +225,3 @@ export default function BrowseMembership() {
     </div>
   );
 }
-
