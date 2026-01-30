@@ -186,7 +186,7 @@ export default function BrowseMembership() {
                     : "bg-gray-500 hover:bg-gray-600"
                 }`}
               >
-                {loadingPlan === plan.activity ? "Processing..." : "Subscribe"}
+                {loadingPlan === plan.activity ? "Processing..." : "Buy Now"}
               </button>
             </div>
           ))}
