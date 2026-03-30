@@ -1,9 +1,13 @@
+//
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
+import { Sun, Moon } from "lucide-react"; // Assuming you use lucide for icons
+import { useTheme } from "../context/ThemeContext";
 
 export default function Navbar({ userName }) {
   const navigate = useNavigate();
+  const { isDark, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
@@ -16,140 +20,104 @@ export default function Navbar({ userName }) {
 
   return (
     <>
-      <nav className="relative w-full border-b border-zinc-900/30 bg-[#080808] z-50">
-        <div className="flex items-center justify-between px-6 py-5 md:px-20">
-          <div className="flex items-center gap-10">
+      <nav className="relative w-full z-50 bg-white dark:bg-black border-b border-zinc-200 dark:border-zinc-900 transition-colors duration-500">
+        <div className="flex items-center justify-between px-6 py-6 md:px-12">
+          {/* Logo */}
+          <Link
+            to="/dashboard"
+            className="text-xl text-black dark:text-white tracking-[0.15em] uppercase"
+          >
+            SLATE
+          </Link>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-8 text-[10px] font-bold tracking-[0.2em] uppercase text-zinc-500 dark:text-zinc-400">
             <Link
               to="/dashboard"
-              className="text-xl md:text-2xl font-black tracking-tighter flex items-center gap-3 text-rose-500"
+              className="hover:text-black dark:hover:text-white transition-colors"
             >
-              <div className="w-8 h-8 bg-rose-600 rounded-lg flex items-center justify-center text-sm text-zinc-950">
-                ሀ
-              </div>
-              <span className="inline-block">MEMBERSHIP</span>
+              Dashboard
+            </Link>
+            <Link
+              to="/browse-memberships"
+              className="hover:text-black dark:hover:text-white transition-colors"
+            >
+              Browse
+            </Link>
+            <Link
+              to="/About"
+              className="hover:text-black dark:hover:text-white transition-colors"
+            >
+              About
             </Link>
 
-            {/* Dashboard Links - Same style as Landing */}
-            <div className="hidden md:flex gap-8 text-sm font-medium text-zinc-500">
-              <Link to="/dashboard" className="hover:text-rose-500 transition">
-                Dashboard
-              </Link>
-              <Link
-                to="/browse-memberships"
-                className="hover:text-rose-500 transition"
-              >
-                Browse
-              </Link>
-              <Link
-                to="/cancel-subscription"
-                className="hover:text-rose-500 transition"
-              >
-                Manage
-              </Link>
-              <Link to="/About" className="hover:text-rose-500 transition">
-                About
-              </Link>
-            </div>
-          </div>
+            <button
+              onClick={toggleTheme}
+              className="p-1 hover:text-black dark:hover:text-white transition-colors"
+            >
+              {isDark ? (
+                <Sun className="w-4 h-4" />
+              ) : (
+                <Moon className="w-4 h-4" />
+              )}
+            </button>
 
-          <div className="hidden md:flex items-center gap-6">
             <button
               onClick={() => setShowLogoutModal(true)}
-              className="px-6 py-2.5 text-sm font-bold bg-zinc-900 border border-zinc-800 text-white rounded-full hover:bg-rose-600 hover:border-rose-600 transition shadow-lg"
+              className="px-6 py-2 border border-zinc-300 dark:border-zinc-700 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all"
             >
               Sign Out
             </button>
           </div>
 
+          {/* Burger */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-zinc-400 hover:text-white focus:outline-none"
+            className="md:hidden flex flex-col gap-1.5 w-6 h-6"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {isOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16m-7 6h7"
-                />
-              )}
-            </svg>
+            <span
+              className={`h-[1px] bg-black dark:bg-white transition-all ${
+                isOpen ? "rotate-45 translate-y-2 w-6" : "w-6"
+              }`}
+            />
+            <span
+              className={`h-[1px] bg-black dark:bg-white transition-all ${
+                isOpen ? "opacity-0" : "w-5"
+              }`}
+            />
+            <span
+              className={`h-[1px] bg-black dark:bg-white transition-all ${
+                isOpen ? "-rotate-45 -translate-y-2 w-6" : "w-4"
+              }`}
+            />
           </button>
         </div>
-
-        {/* Mobile Menu - Same animation and style as Landing */}
-        {isOpen && (
-          <div className="absolute top-full left-0 w-full bg-[#0d0d0d] border-b border-zinc-800 p-6 flex flex-col gap-6 md:hidden animate-in fade-in slide-in-from-top-4 duration-300">
-            <div className="flex flex-col gap-4 text-zinc-400 font-medium">
-              <Link to="/dashboard" onClick={() => setIsOpen(false)}>
-                Dashboard
-              </Link>
-              <Link to="/browse-memberships" onClick={() => setIsOpen(false)}>
-                Browse
-              </Link>
-              <Link to="/cancel-subscription" onClick={() => setIsOpen(false)}>
-                Manage
-              </Link>
-              <Link to="/About" onClick={() => setIsOpen(false)}>
-                About
-              </Link>
-            </div>
-            <hr className="border-zinc-800" />
-            <div className="flex flex-col gap-4">
-              <button
-                onClick={() => {
-                  setIsOpen(false);
-                  setShowLogoutModal(true);
-                }}
-                className="px-6 py-3 text-center text-sm font-bold bg-rose-600 text-white rounded-xl"
-              >
-                Sign Out
-              </button>
-            </div>
-          </div>
-        )}
       </nav>
 
-      {/* Dark Modal - Stays consistent with the Auth pages */}
+      {/* Logout Modal - SLATE Styling */}
       {showLogoutModal && (
         <div className="fixed inset-0 flex items-center justify-center z-[100] p-4">
           <div
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-white/50 dark:bg-black/80 backdrop-blur-sm"
             onClick={() => setShowLogoutModal(false)}
           />
-          <div className="relative bg-[#0d0d0d] border border-zinc-800 rounded-[32px] p-8 md:p-12 w-full max-w-md shadow-2xl text-center">
-            <div className="w-16 h-16 bg-rose-500/10 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
-              <FiLogOut />
-            </div>
-            <h3 className="text-2xl font-bold text-white mb-2">
-              Leaving already?
+          <div className="relative bg-white dark:bg-[#050505] border border-zinc-300 dark:border-zinc-800 p-12 w-full max-w-sm text-center">
+            <h3 className="text-xl font-black tracking-tighter uppercase mb-2">
+              Sign Out
             </h3>
-            <p className="text-zinc-500 text-sm mb-8 font-medium">
-              You'll need to sign back in to access your basketball sessions.
+            <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-8">
+              Terminate your active session?
             </p>
             <div className="flex flex-col gap-3">
               <button
                 onClick={handleSignOut}
-                className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white rounded-2xl font-bold text-sm transition-all"
+                className="w-full py-4 bg-black dark:bg-white text-white dark:text-black hover:dark:bg-red-600 hover:bg-red-600 hover:text-white hover:dark:text-white font-bold text-[10px] uppercase tracking-widest hover:opacity-80 transition-all"
               >
-                Yes, Sign Out
+                Confirm
               </button>
               <button
                 onClick={() => setShowLogoutModal(false)}
-                className="w-full py-4 bg-zinc-900 text-zinc-400 hover:text-white rounded-2xl font-bold text-sm transition-all"
+                className="w-full py-4 border border-zinc-200 text-black dark:text-white hover:dark:bg-blue-500 hover:dark:text-white hover:bg-blue-500 hover:text-white   dark:border-zinc-800 font-bold text-[10px] uppercase tracking-widest"
               >
                 Cancel
               </button>
