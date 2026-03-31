@@ -11,84 +11,94 @@ import AdminSubscriptions from "./pages/Admin/AdminSubscription";
 import RoleRoute from "./components/RoleRoute";
 import AdminSettings from "./pages/Admin/AdminSettings";
 import About from "./pages/User/About";
+import Footer from "./pages/Footer";
 
 export default function App() {
   return (
     <Router>
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Landing />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
+      {/* 1. Wrap everything in a div so we can use Flexbox to keep footer at the bottom */}
+      <div className="flex flex-col min-h-screen">
+        {/* 2. Main content area grows to push the footer down */}
+        <main className="flex-grow">
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Landing />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
 
-        {/* User Dashboard */}
-        <Route
-          path="/dashboard"
-          element={
-            <RoleRoute requiredRole="user">
-              <Dashboard />
-            </RoleRoute>
-          }
-        />
-        <Route
-          path="/browse-memberships"
-          element={
-            <RoleRoute requiredRole="user">
-              <BrowseMembership />
-            </RoleRoute>
-          }
-        />
-        <Route
-          path="/cancel-subscription"
-          element={
-            <RoleRoute requiredRole="user">
-              <CancelSubscription />
-            </RoleRoute>
-          }
-        />
-        <Route
-          path="/About"
-          element={
-            <RoleRoute requiredRole="user">
-              <About />
-            </RoleRoute>
-          }
-        />
+            {/* User Dashboard */}
+            <Route
+              path="/dashboard"
+              element={
+                <RoleRoute requiredRole="user">
+                  <Dashboard />
+                </RoleRoute>
+              }
+            />
+            <Route
+              path="/browse-memberships"
+              element={
+                <RoleRoute requiredRole="user">
+                  <BrowseMembership />
+                </RoleRoute>
+              }
+            />
+            <Route
+              path="/cancel-subscription"
+              element={
+                <RoleRoute requiredRole="user">
+                  <CancelSubscription />
+                </RoleRoute>
+              }
+            />
+            <Route
+              path="/About"
+              element={
+                <RoleRoute requiredRole="user">
+                  <About />
+                </RoleRoute>
+              }
+            />
 
-        {/* Admin Routes */}
-        <Route
-          path="/admin/dashboard"
-          element={
-            <RoleRoute requiredRole="admin">
-              <AdminDashboard />
-            </RoleRoute>
-          }
-        />
-        <Route
-          path="/admin/users"
-          element={
-            <RoleRoute requiredRole="admin">
-              <AdminUsers />
-            </RoleRoute>
-          }
-        />
-        <Route
-          path="/admin/subscriptions"
-          element={
-            <RoleRoute requiredRole="admin">
-              <AdminSubscriptions />
-            </RoleRoute>
-          }
-        />
-        <Route
-          path="/admin/settings"
-          element={
-            <RoleRoute requiredRole="admin">
-              <AdminSettings />
-            </RoleRoute>
-          }
-        />
-      </Routes>
+            {/* Admin Routes */}
+            <Route
+              path="/admin/dashboard"
+              element={
+                <RoleRoute requiredRole="admin">
+                  <AdminDashboard />
+                </RoleRoute>
+              }
+            />
+            <Route
+              path="/admin/users"
+              element={
+                <RoleRoute requiredRole="admin">
+                  <AdminUsers />
+                </RoleRoute>
+              }
+            />
+            <Route
+              path="/admin/subscriptions"
+              element={
+                <RoleRoute requiredRole="admin">
+                  <AdminSubscriptions />
+                </RoleRoute>
+              }
+            />
+            <Route
+              path="/admin/settings"
+              element={
+                <RoleRoute requiredRole="admin">
+                  <AdminSettings />
+                </RoleRoute>
+              }
+            />
+          </Routes>
+        </main>
+
+        {/* 3. Footer sits OUTSIDE Routes so it stays visible on every page */}
+        <Footer />
+      </div>
     </Router>
   );
 }
