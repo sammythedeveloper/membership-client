@@ -2,97 +2,91 @@ import { useState, useEffect } from "react";
 import axios from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
-import Footer from "../Footer";
+import { FiCheck, FiStar, FiZap, FiShield, FiUsers } from "react-icons/fi";
 
 const availablePlans = [
   {
-    activity: "Free trial",
-    displayName: "Free trial",
+    activity: "Community Guest",
+    displayName: "Guest Pass",
     duration: "1",
-    price: "$1/month",
+    price: "$0",
     description:
-      "Try sample drills and workouts to see what our basketball training system offers.",
-    frequency: "Limited access",
-    accommodations: "Basic skill drills & videos",
-    trial: "7-day free access",
-    cancel: "No payment required",
-    tier: "FREE",
+      "Perfect for newcomers. Access community announcements and public cultural events.",
+    features: [
+      "Access to Public Forums",
+      "Event Notifications",
+      "Basic Resource Library",
+    ],
+    tier: "GUEST",
+    color: "zinc",
   },
   {
-    activity: "Beginner players plan",
-    displayName: "Beginner players membership",
+    activity: "Active Member",
+    displayName: "Community Member",
     duration: "1",
-    price: "$15/month",
+    price: "$15",
     description:
-      "For casual hoopers learning shooting, dribbling, and footwork fundamentals.",
-    frequency: "3–4 workouts/week",
-    accommodations: "Beginner programs, drill library, structured weekly plans",
-    trial: "7-day free trial",
-    cancel: "Cancel anytime",
+      "Our core membership. Join regular sports runs, coffee meets, and skill workshops.",
+    features: [
+      "Weekly Open Runs",
+      "Cultural Workshops",
+      "Member-only Discounts",
+    ],
     tier: "BASIC",
+    color: "rose",
   },
   {
-    activity: "Pro Players Plan",
-    displayName: "Pro players membership",
+    activity: "Community Leader",
+    displayName: "Gold Membership",
     duration: "1",
-    price: "$25/month",
+    price: "$25",
     description:
-      "For serious experianced players focused on performance and game-level skills.",
-    frequency: "5–6 workouts/week",
-    accommodations:
-      "All programs, position-specific training, progress tracking",
-    trial: "7-day free trial",
-    cancel: "Cancel anytime",
+      "For those dedicated to growth and leadership within the GTA Diaspora.",
+    features: [
+      "Priority Event Access",
+      "Mentorship Programs",
+      "Leadership Training",
+    ],
     tier: "PRO",
+    color: "rose",
   },
   {
-    activity: "Challenge Plan",
-    displayName: "Challenge membership",
+    activity: "Impact Partner",
+    displayName: "Impact Pass",
     duration: "1",
-    price: "$25/month",
+    price: "$50",
     description:
-      "Push your limits with weekly skill challenges and mini-tournaments. Track progress and compete with fellow members",
-    frequency: "4–5 workouts/week + challenges",
-    accommodations: "Challenge drills, leaderboard tracking, progress badges",
-    trial: "7-day free trial",
-    cancel: "Cancel anytime",
-    tier: "Challenge Plan",
+      "Support the hub's growth. Includes all perks plus direct contribution to youth programs.",
+    features: ["All Pro Perks", "Sponsor Recognition", "Direct Youth Support"],
+    tier: "IMPACT",
+    color: "white",
   },
 ];
 
-const demoCoaches = [
+const communityMentors = [
   {
-    name: "Coach Mike",
+    name: "Dawit Tekle",
     avatar: "/1.png",
-    status: "Head Coach - Youth Basketball",
-    accomplishments: ["3x Regional Champion", "Developed 50+ beginner players"],
+    role: "Sports & Wellness Lead",
+    bio: "Dedicated to building community through physical activity and health education.",
   },
   {
-    name: "Coach Sarah",
+    name: "Sara Selassie",
     avatar: "/3.png",
-    status: "Assistant Coach - Local High School",
-    accomplishments: [
-      "Trained 100+ beginner players",
-      "Organized community basketball camps",
-    ],
+    role: "Youth Programs Director",
+    bio: "Specializes in developing leadership skills for the next generation in Toronto.",
   },
   {
-    name: "Coach Jordan",
+    name: "Yonas Gebre",
     avatar: "/2.png",
-    status: "Former College Athlete & Pro Trainer",
-    accomplishments: [
-      "Trained 20+ high school and college athletes",
-      "Position-specific skill development expert",
-    ],
+    role: "Community Engagement",
+    bio: "Focused on networking and professional growth within the Diaspora.",
   },
   {
-    name: "Coach Emily",
+    name: "Eden Haile",
     avatar: "/4.png",
-    status: "Assistant Coach - City Basketball League",
-    accomplishments: [
-      "Developed youth skill programs",
-      "Organized summer basketball camps",
-    ],
+    role: "Cultural Coordinator",
+    bio: "Bringing the beauty of Ethiopian heritage to our local GTA events.",
   },
 ];
 
@@ -111,17 +105,14 @@ export default function BrowseMembership() {
   const handleSubscribe = async (plan) => {
     setLoadingPlan(plan.activity);
     setMessage("");
-
     try {
       const res = await axios.post("/subscription/checkout", {
         activity: plan.activity,
         duration: plan.duration,
       });
-
       window.location.href = res.data.url;
     } catch (err) {
-      console.error("Checkout error →", err);
-      setMessage("Failed to start checkout. Try again later.");
+      setMessage("System busy. Please try again.");
     } finally {
       setLoadingPlan(null);
     }
@@ -129,105 +120,125 @@ export default function BrowseMembership() {
 
   if (!user) return null;
 
-  const firstName =
-    user.name.charAt(0).toUpperCase() + user.name.slice(1).toLowerCase();
-
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      <Navbar userName={firstName} />
+    <div className="min-h-screen bg-[#080808] text-white flex flex-col font-sans">
+      <Navbar userName={user.name.split(" ")[0]} />
 
-      <main className="flex-grow p-10">
-        <h2 className="text-3xl font-extralight mb-8 text-center">
-          Browse Membership Plans
-        </h2>
-
-        {message && (
-          <p className="text-center mb-6 text-green-600 font-semibold">
-            {message}
+      <main className="max-w-7xl mx-auto w-full px-6 py-16 md:py-24">
+        <div className="text-center mb-16 space-y-4">
+          <h2 className="text-4xl md:text-6xl font-black tracking-tighter">
+            Choose Your <span className="text-rose-600">Journey</span>
+          </h2>
+          <p className="text-zinc-500 max-w-2xl mx-auto font-medium">
+            Join the premier hub for the Ethiopian Diaspora in the GTA. Connect,
+            grow, and lead with your community.
           </p>
-        )}
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {availablePlans.map((plan, idx) => (
             <div
               key={idx}
-              className="bg-white shadow-lg rounded-2xl p-8 flex flex-col justify-between transform transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
+              className={`relative bg-[#0d0d0d] border ${
+                plan.tier === "PRO"
+                  ? "border-rose-600/50"
+                  : "border-zinc-800/50"
+              } rounded-[32px] p-8 flex flex-col hover:border-rose-600 transition-all duration-500 group`}
             >
-              <h3 className="text-2xl font-extralight mb-3 text-red-800">
-                {plan.activity}
-              </h3>
-              <p className="text-black mb-2">
-                <strong>Price:</strong> {plan.price}
+              {plan.tier === "PRO" && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-rose-600 text-white text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-widest">
+                  Most Popular
+                </div>
+              )}
+
+              <div className="mb-8">
+                <h3 className="text-xl font-bold mb-2 group-hover:text-rose-500 transition-colors">
+                  {plan.displayName}
+                </h3>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl font-black">{plan.price}</span>
+                  <span className="text-zinc-500 text-xs font-bold uppercase tracking-widest">
+                    / Month
+                  </span>
+                </div>
+              </div>
+
+              <p className="text-zinc-400 text-xs leading-relaxed mb-8 font-medium">
+                {plan.description}
               </p>
-              <p className="text-black mb-2">
-                <strong>Duration:</strong> {plan.duration} month(s)
-              </p>
-              <p className="text-black mb-2">
-                <strong>Description:</strong> {plan.description}
-              </p>
-              <p className="text-black mb-2">
-                <strong>Frequency:</strong> {plan.frequency}
-              </p>
-              <p className="text-black mb-2">
-                <strong>Accommodations:</strong> {plan.accommodations}
-              </p>
-              <p className="text-black mb-2">
-                <strong>Trial:</strong> {plan.trial}
-              </p>
-              <p className="text-black mb-4">
-                <strong>Cancel Policy:</strong> {plan.cancel}
-              </p>
+
+              <div className="space-y-4 mb-10 flex-grow">
+                {plan.features.map((feature, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className="w-5 h-5 bg-rose-600/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <FiCheck size={12} className="text-rose-600" />
+                    </div>
+                    <span className="text-xs font-bold text-zinc-300">
+                      {feature}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
               <button
                 onClick={() => handleSubscribe(plan)}
                 disabled={loadingPlan === plan.activity}
-                className={`w-full py-3 rounded-xl font-medium text-white transition-colors duration-300 ${
-                  plan.tier === "PRO"
-                    ? "bg-red-600 hover:bg-red-700"
-                    : plan.tier === "BASIC"
-                    ? "bg-yellow-500 hover:bg-yellow-600"
-                    : plan.tier === "Challenge Plan"
-                    ? "bg-blue-400 hover:bg-blue-500"
-                    : "bg-gray-500 hover:bg-gray-600"
+                className={`w-full py-4 rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] transition-all active:scale-[0.98] ${
+                  plan.color === "rose"
+                    ? "bg-rose-600 text-white hover:bg-rose-700 shadow-lg shadow-rose-900/20"
+                    : "bg-zinc-900 text-white hover:bg-zinc-800 border border-zinc-800"
                 }`}
               >
-                {loadingPlan === plan.activity
-                  ? "Processing..."
-                  : "Buy Now"}
+                {loadingPlan === plan.activity ? "Verifying..." : "Select Plan"}
               </button>
             </div>
           ))}
         </div>
       </main>
 
-      <section className="bg-gray-100 py-10 px-4 sm:px-10">
-        <h2 className="text-3xl sm:text-4xl font-extralight mb-8 text-center">
-          Meet Our Coaches
-        </h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {demoCoaches.map((coach, idx) => (
-            <div
-              key={idx}
-              className="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
-            >
-              <img
-                src={coach.avatar}
-                alt={coach.name}
-                className="w-24 h-24 rounded-full mb-4 object-cover"
-              />
-              <h3 className="text-xl font-semibold mb-1">{coach.name}</h3>
-              <p className="text-gray-600 mb-2">{coach.status}</p>
-              <ul className="list-disc list-inside text-gray-700">
-                {coach.accomplishments.map((acc, i) => (
-                  <li key={i}>{acc}</li>
-                ))}
-              </ul>
+      {/* Community Mentors Section */}
+      <section className="bg-[#0b0b0b] border-y border-zinc-900 py-24 px-6 md:px-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div className="space-y-2">
+              <h2 className="text-4xl font-black tracking-tight">
+                Community <span className="text-rose-600">Mentors</span>
+              </h2>
+              <p className="text-zinc-500 font-bold uppercase tracking-[0.2em] text-[10px]">
+                Guided by Experience • Powered by Culture
+              </p>
             </div>
-          ))}
+            <div className="flex items-center gap-4 bg-zinc-900/50 p-3 rounded-2xl border border-zinc-800">
+              <FiUsers className="text-rose-600" />
+              <span className="text-xs font-black uppercase tracking-widest">
+                50+ Active Members
+              </span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {communityMentors.map((mentor, idx) => (
+              <div key={idx} className="group text-center">
+                <div className="relative mb-6 inline-block">
+                  <div className="absolute inset-0 bg-rose-600 rounded-full blur-2xl opacity-0 group-hover:opacity-20 transition-opacity" />
+                  <img
+                    src={mentor.avatar}
+                    alt={mentor.name}
+                    className="w-32 h-32 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-zinc-800 group-hover:border-rose-600 relative z-10"
+                  />
+                </div>
+                <h3 className="text-lg font-bold mb-1">{mentor.name}</h3>
+                <p className="text-rose-600 text-[10px] font-black uppercase tracking-widest mb-3">
+                  {mentor.role}
+                </p>
+                <p className="text-zinc-500 text-xs leading-relaxed font-medium px-4">
+                  {mentor.bio}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }

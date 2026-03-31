@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "../../utils/axiosInstance";
 import Navbar from "../../components/Navbar";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiCalendar, FiClock, FiLayers, FiArrowRight } from "react-icons/fi";
 
 // Images (Using your existing imports)
@@ -9,6 +9,7 @@ import artImg from "../../assets/art.jpg";
 import bookClubImg from "../../assets/bookclub.jpg";
 import basketballImg from "../../assets/basketball.jpg";
 import walkImg from "../../assets/walk.jpg";
+import MembershipDetailModal from "./MembershipDetailModal";
 
 const membershipImages = {
   "Art & Sketch Membership": artImg,
@@ -21,6 +22,7 @@ export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [subscriptions, setSubscriptions] = useState([]);
   const [loadingSubscriptions, setLoadingSubscriptions] = useState(true);
+  const [selectedSub, setSelectedSub] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -82,12 +84,14 @@ export default function Dashboard() {
           <h3 className="text-xl font-bold flex items-center gap-2">
             <FiLayers className="text-rose-600" /> My Programs
           </h3>
-          <button
-            onClick={() => navigate("/memberships")}
-            className="text-xs font-bold text-zinc-500 hover:text-white transition flex items-center gap-2"
-          >
-            Explore More <FiArrowRight />
-          </button>
+          <Link to="/browse-memberships">
+            <button
+              onClick={() => navigate("/memberships")}
+              className="text-xs font-bold text-zinc-500 hover:text-white transition flex items-center gap-2"
+            >
+              Explore More <FiArrowRight />
+            </button>
+          </Link>
         </div>
 
         {loadingSubscriptions ? (
@@ -173,7 +177,10 @@ export default function Dashboard() {
                       </div>
                     </div>
 
-                    <button className="w-full py-4 bg-zinc-900 border border-zinc-800 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] group-hover:bg-rose-600 group-hover:border-rose-600 transition-all">
+                    <button
+                      onClick={() => setSelectedSub(sub)} // Pass the whole sub object
+                      className="w-full py-4 bg-zinc-900 border border-zinc-800 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] group-hover:bg-rose-600 group-hover:border-rose-600 transition-all"
+                    >
                       View Details
                     </button>
                   </div>
@@ -183,6 +190,11 @@ export default function Dashboard() {
           </div>
         )}
       </main>
+      <MembershipDetailModal
+        isOpen={!!selectedSub}
+        onClose={() => setSelectedSub(null)}
+        subscription={selectedSub}
+      />
     </div>
   );
 }
