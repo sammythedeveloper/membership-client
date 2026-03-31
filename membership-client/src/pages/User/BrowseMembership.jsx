@@ -6,7 +6,7 @@ import { FiCheck, FiStar, FiZap, FiShield, FiUsers } from "react-icons/fi";
 
 const availablePlans = [
   {
-    activity: "Community Guest",
+    activity: "Free trial",
     displayName: "Guest Pass",
     duration: "1",
     price: "$0",
@@ -21,7 +21,7 @@ const availablePlans = [
     color: "zinc",
   },
   {
-    activity: "Active Member",
+    activity: "Beginner players plan",
     displayName: "Community Member",
     duration: "1",
     price: "$15",
@@ -36,7 +36,7 @@ const availablePlans = [
     color: "rose",
   },
   {
-    activity: "Community Leader",
+    activity: "Pro Players Plan",
     displayName: "Gold Membership",
     duration: "1",
     price: "$25",
@@ -51,7 +51,7 @@ const availablePlans = [
     color: "rose",
   },
   {
-    activity: "Impact Partner",
+    activity: "Challenge Plan",
     displayName: "Impact Pass",
     duration: "1",
     price: "$50",
@@ -145,11 +145,6 @@ export default function BrowseMembership() {
                   : "border-zinc-800/50"
               } rounded-[32px] p-8 flex flex-col hover:border-rose-600 transition-all duration-500 group`}
             >
-              {plan.tier === "PRO" && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-rose-600 text-white text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-widest">
-                  Most Popular
-                </div>
-              )}
 
               <div className="mb-8">
                 <h3 className="text-xl font-bold mb-2 group-hover:text-rose-500 transition-colors">
