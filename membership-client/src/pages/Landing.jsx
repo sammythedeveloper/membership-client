@@ -109,7 +109,7 @@ export default function Landing() {
         )}
       </nav>
 
-      <main className="max-w-7xl mx-auto px-6 md:px-20 pt-12 lg:pt-28 flex flex-col lg:flex-row gap-16 relative flex-grow">
+      <main className="max-w-7xl mx-auto px-6 md:px-20 pt-12 lg:pt-28 flex flex-col lg:flex-row gap-16 relative flex-grow mb-6">
         <div className="absolute top-0 -left-20 w-[600px] h-[600px] bg-rose-950/20 rounded-full blur-[140px] -z-10" />
 
         {/* Left Content */}
