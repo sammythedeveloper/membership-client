@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { Sun, Moon } from "lucide-react";
+import bgVideo from "../../assets/bg.mp4";
 import axios from "../../utils/axiosInstance";
-import communityImg from "../../assets/wow.png";
+import { useTheme } from "../../context/ThemeContext";
 
 const SignUp = () => {
+  const { isDark, toggleTheme } = useTheme();
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -56,59 +59,64 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] font-sans text-white flex items-center justify-center p-4 md:p-6 overflow-hidden relative">
-      {/* Background Glow */}
+    <div className="relative min-h-screen flex items-center justify-center p-4">
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-white dark:bg-black">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-20 dark:opacity-45 pointer-events-none"
+          src={bgVideo}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/40 to-white/90 dark:from-black/80 dark:via-black/40 dark:to-black/90 transition-colors duration-500" />
+      </div>
+      <button
+        onClick={toggleTheme}
+        className="absolute top-6 right-6 p-2 text-zinc-500 hover:text-black dark:hover:text-white"
+      >
+        {isDark ? <Sun size={20} /> : <Moon size={20} />}
+      </button>
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-rose-950/10 rounded-full blur-[120px] -z-0" />
 
-      <div className="w-full max-w-7xl h-auto md:h-[780px] flex flex-col md:flex-row bg-[#0f0f0f] rounded-[40px] border border-zinc-800/50 shadow-2xl overflow-hidden z-10">
+      <div className="relative z-10 w-full max-w-5xl h-auto md:h-[600px] flex flex-col md:flex-row bg-zinc-50 dark:bg-[#0f0f0f] rounded-[32px] border border-zinc-200 dark:border-zinc-800/50 shadow-2xl overflow-hidden">
         {/* Left Side: Community Image Panel */}
-        <div className="hidden md:flex md:w-1/2 p-12 lg:p-16 flex-col justify-between relative bg-gradient-to-br from-zinc-900 to-[#0f0f0f] border-r border-zinc-800/50">
+        <div className="hidden md:flex md:w-1/2 p-16 flex-col justify-between bg-zinc-100 dark:bg-zinc-900/30 border-r border-zinc-200 dark:border-zinc-800/50">
           <Link to="/">
             <div className="relative z-10 flex items-center gap-2">
-              <div className="w-8 h-8 bg-rose-600 rounded-lg flex items-center justify-center text-white font-bold">
-                ሀ
-              </div>
-              <span className="font-black text-xl tracking-tighter text-white">
-                MEMBERSHIP
+              <span className="text-xl font-black tracking-[0.2em] text-black dark:text-white">
+                SLATE
               </span>
             </div>
           </Link>
-
-          <div className="relative z-10 space-y-8">
-            <h2 className="text-4xl lg:text-5xl font-black tracking-tight leading-[1.1] text-white">
-              "Your game starts <br />
-              <span className="text-rose-600 text-opacity-80 font-bold italic">
-                with your community."
-              </span>
+          <div className="space-y-6">
+            <h2 className="text-3xl font-black tracking-tight leading-tight text-black dark:text-white">
+              Power Your <br />
+              <span className="text-zinc-500">Revenue Engine.</span>
             </h2>
-            <div className="flex-1 max-h-[380px] overflow-hidden rounded-[32px] border border-zinc-800 shadow-2xl rotate-[2deg] hover:rotate-0 transition-transform duration-500">
-              <img
-                src={communityImg}
-                alt="Ethiopian Basketball Community"
-                className="w-full h-full object-cover opacity-90"
-              />
-            </div>
+            <p className="text-sm text-zinc-500 leading-relaxed">
+              Join the ecosystem built for modern SaaS. Create your account to
+              start automating your billing, syncing ledgers, and scaling your
+              operations.
+            </p>
           </div>
 
-          <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.3em]">
-            Join the GTA Network • 2025
+          <div className="text-[9px] font-bold text-zinc-400 uppercase tracking-[0.3em]">
+            Join our Infrastructure soon!
           </div>
         </div>
 
         {/* Right Side: Sign Up Form */}
-        <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-[#0d0d0d]">
+        <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center">
           <div className="max-w-md mx-auto w-full">
             <div className="mb-8">
-              <h1 className="text-3xl font-black text-white mb-2 tracking-tight">
+              <h1 className="text-3xl font-black text-black dark:text-white mb-2 tracking-tight">
                 Create Account
               </h1>
-              <p className="text-zinc-500 text-sm font-medium">
-                Join the premier hub for Ethiopian basketball in Toronto.
-              </p>
             </div>
 
             {error && (
-              <div className="mb-6 p-4 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-rose-500 text-xs font-bold text-center">
+              <div className="mb-6 p-3 bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] uppercase font-bold text-center rounded-lg">
                 {error}
               </div>
             )}
@@ -127,9 +135,9 @@ const SignUp = () => {
                 <input
                   name="name"
                   type="text"
-                  placeholder="Elias Tadesse"
+                  placeholder="Your Name"
                   onChange={handleChange}
-                  className="w-full px-5 py-4 bg-zinc-900/50 border border-zinc-800 text-white rounded-2xl focus:ring-2 focus:ring-rose-600/20 focus:border-rose-600 outline-none transition-all placeholder:text-zinc-700 text-sm"
+                  className="w-full px-5 py-4 bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-xl outline-none focus:ring-1 focus:ring-zinc-500"
                 />
               </div>
 
@@ -140,9 +148,9 @@ const SignUp = () => {
                 <input
                   name="email"
                   type="email"
-                  placeholder="name@example.com"
+                  placeholder="Email Address"
                   onChange={handleChange}
-                  className="w-full px-5 py-4 bg-zinc-900/50 border border-zinc-800 text-white rounded-2xl focus:ring-2 focus:ring-rose-600/20 focus:border-rose-600 outline-none transition-all placeholder:text-zinc-700 text-sm"
+                  className="w-full px-5 py-4 bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-xl outline-none focus:ring-1 focus:ring-zinc-500"
                 />
               </div>
 
@@ -157,7 +165,7 @@ const SignUp = () => {
                     placeholder="••••••••"
                     value={form.password}
                     onChange={handleChange}
-                    className="w-full px-5 py-4 bg-zinc-900/50 border border-zinc-800 text-white rounded-2xl focus:ring-2 focus:ring-rose-600/20 focus:border-rose-600 outline-none transition-all placeholder:text-zinc-700 text-sm"
+                    className="w-full px-5 py-4 bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-xl outline-none focus:ring-1 focus:ring-zinc-500"
                   />
                   <button
                     type="button"
@@ -176,7 +184,7 @@ const SignUp = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-rose-600 hover:bg-rose-700 text-white py-4 rounded-2xl font-black uppercase text-xs tracking-widest transition-all shadow-lg shadow-rose-900/20 disabled:opacity-50 active:scale-[0.98] mt-4"
+                className="w-full bg-black dark:bg-white text-white dark:text-black hover:bg-green-500  hover:dark:bg-orange-400 hover:dark:text-white py-4 rounded-xl font-bold uppercase text-[10px] tracking-widest transition-all"
               >
                 {loading ? "Creating Account..." : "Join the Community"}
               </button>
@@ -185,7 +193,7 @@ const SignUp = () => {
               Already have an account?{" "}
               <Link
                 to="/signin"
-                className="text-white font-bold hover:text-rose-500 transition underline underline-offset-4"
+                className="text-black dark:text-white font-bold hover:text-orange-500 transition underline underline-offset-4"
               >
                 Sign In
               </Link>
