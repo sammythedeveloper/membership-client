@@ -21,15 +21,10 @@ export default function Landing() {
             </Link>
 
             <div className="hidden md:flex gap-8 text-sm font-medium text-zinc-500">
-              <a href="#community" className="hover:text-rose-500 transition">
-                Community
-              </a>
-              <a href="#wellness" className="hover:text-rose-500 transition">
-                Wellness
-              </a>
-              <a href="#runs" className="hover:text-rose-500 transition">
-                Open Runs
-              </a>
+              <Link to="/About">Community</Link>
+              <Link to="/About">Wellness</Link>
+              <Link to="/About">Open Runs</Link>
+      
             </div>
           </div>
 
@@ -44,7 +39,7 @@ export default function Landing() {
               to="/signup"
               className="px-6 py-2.5 text-sm font-bold bg-rose-600 text-white rounded-full hover:bg-rose-700 transition shadow-lg shadow-rose-900/40"
             >
-              Join the Community
+              Join 
             </Link>
           </div>
 
@@ -80,15 +75,9 @@ export default function Landing() {
         {isOpen && (
           <div className="absolute top-full left-0 w-full bg-[#0d0d0d] border-b border-zinc-800 p-6 flex flex-col gap-6 md:hidden animate-in fade-in slide-in-from-top-4 duration-300">
             <div className="flex flex-col gap-4 text-zinc-400 font-medium">
-              <a href="#community" onClick={() => setIsOpen(false)}>
-                Community
-              </a>
-              <a href="#wellness" onClick={() => setIsOpen(false)}>
-                Wellness
-              </a>
-              <a href="#runs" onClick={() => setIsOpen(false)}>
-                Open Runs
-              </a>
+            <Link to="/About">Community</Link>
+              <Link to="/About">Wellness</Link>
+              <Link to="/About">Open Runs</Link>
             </div>
             <hr className="border-zinc-800" />
             <div className="flex flex-col gap-4">
@@ -102,7 +91,7 @@ export default function Landing() {
                 to="/signup"
                 className="px-6 py-3 text-center text-sm font-bold bg-rose-600 text-white rounded-xl"
               >
-                Join the Community
+                Join the community
               </Link>
             </div>
           </div>
@@ -138,7 +127,7 @@ export default function Landing() {
               className="bg-transparent flex-1 px-4 outline-none text-sm text-white placeholder:text-zinc-600"
             />
             <Link to="/signup">
-              <button className="bg-white text-black px-6 md:px-8 py-3.5 rounded-xl font-black text-xs uppercase tracking-tighter hover:bg-rose-600 hover:text-white transition-all duration-300">
+              <button className="bg-white text-black px-6 md:px-8 py-2.5 rounded-xl font-black text-xs uppercase tracking-tighter hover:bg-rose-600 hover:text-white transition-all duration-300">
                 Get Started
               </button>
             </Link>
