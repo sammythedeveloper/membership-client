@@ -137,7 +137,7 @@ const SignUp = () => {
                   type="text"
                   placeholder="Your Name"
                   onChange={handleChange}
-                  className="w-full px-5 py-4 bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-xl outline-none focus:ring-1 focus:ring-zinc-500"
+                  className="w-full px-5 py-4 bg-white dark:bg-zinc-900/50 text-black dark:text-white  border border-zinc-200 dark:border-zinc-800 rounded-xl outline-none focus:ring-1 focus:ring-zinc-500"
                 />
               </div>
 
@@ -150,7 +150,7 @@ const SignUp = () => {
                   type="email"
                   placeholder="Email Address"
                   onChange={handleChange}
-                  className="w-full px-5 py-4 bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-xl outline-none focus:ring-1 focus:ring-zinc-500"
+                  className="w-full px-5 py-4 bg-white dark:bg-zinc-900/50 text-black dark:text-white  border border-zinc-200 dark:border-zinc-800 rounded-xl outline-none focus:ring-1 focus:ring-zinc-500"
                 />
               </div>
 
@@ -165,7 +165,7 @@ const SignUp = () => {
                     placeholder="••••••••"
                     value={form.password}
                     onChange={handleChange}
-                    className="w-full px-5 py-4 bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-xl outline-none focus:ring-1 focus:ring-zinc-500"
+                    className="w-full px-5 py-4 bg-white dark:bg-zinc-900/50 text-black dark:text-white  border border-zinc-200 dark:border-zinc-800 rounded-xl outline-none focus:ring-1 focus:ring-zinc-500"
                   />
                   <button
                     type="button"
