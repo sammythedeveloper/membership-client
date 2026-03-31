@@ -15,7 +15,7 @@ const Footer = () => {
                 <div className="w-8 h-8 bg-rose-600 rounded-lg flex items-center justify-center text-white text-sm">
                   ሀ
                 </div>
-                <span className="inline-block">MEMBERSHIP</span>
+                <span className="inline-block text-sm ">MEMBERSHIP</span>
               </Link>
             </div>
             <p className="text-sm leading-relaxed">
