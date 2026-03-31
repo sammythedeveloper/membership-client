@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import Footer from "../Footer";
+import { FcGoogle } from "react-icons/fc"; 
 import axios from "../../utils/axiosInstance";
+import communityImg from "../../assets/wow.png"; 
 
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -17,9 +19,8 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!form.email || !form.password) {
-      setError("Please fill in both email and password.");
+      setError("Enter your credentials to hit the court.");
       return;
     }
 
@@ -27,103 +28,169 @@ const SignIn = () => {
     setError("");
 
     try {
-      // Use axios instance
       const { data } = await axios.post("/auth/login", form);
-
-      // Save user info + token + role
       localStorage.setItem("user", JSON.stringify(data.user));
       localStorage.setItem("token", data.token);
       localStorage.setItem("role", data.user.role);
 
-      // Redirect based on role
-      if (data.user.role === "admin") {
-        navigate("/admin/dashboard", { replace: true });
-      } else {
-        navigate("/dashboard", { replace: true });
-      }
+      navigate(data.user.role === "admin" ? "/admin/dashboard" : "/dashboard", {
+        replace: true,
+      });
     } catch (err) {
-      console.error(err);
-      setError(
-        err.response?.data?.message || "Login failed. Please try again."
-      );
+      setError(err.response?.data?.message || "Login failed. Check your details.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      <div className="min-h-screen bg-gradient-to-r from-rose-950 to-red-700 flex flex-col md:flex-row items-center justify-center px-6 md:px-20 gap-10">
-        <div className="w-full md:w-1/2 max-w-md text-black flex flex-col justify-center space-y-4">
-          <h2 className="text-5xl font-bold mb-4">Welcome to HoopMaster!</h2>
-          <p className="text-black">
-            Join our basketball training membership app where your skills meet
-            real practice. Based on your schedule and selected skill plan,
-            you'll train with sessions organized by the community.
-          </p>
-          <p className="text-black">
-            Track your progress, improve your game, and connect with other
-            players. Every session is crafted to help you level up and master
-            your basketball skills!
-          </p>
-        </div>
-        <div  className="bg-gradient-to-r from-red-700 to-rose-950 w-full md:w-1/2 max-w-md p-8 rounded-2xl shadow-xl border border-gray-800">
-          <h2 className="text-3xl font-bold text-white text-center mb-6">
-            Welcome Back
-          </h2>
+    <div className="min-h-screen bg-[#080808] font-sans text-white flex items-center justify-center p-4 md:p-6 overflow-hidden relative">
+      {/* Subtle Ambient Glow like the Landing Page */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-rose-950/10 rounded-full blur-[120px] -z-0" />
+      
+      <div className="w-full max-w-7xl h-auto md:h-[750px] flex flex-col md:flex-row bg-[#0f0f0f] rounded-[40px] border border-zinc-800/50 shadow-2xl overflow-hidden z-10">
+        
+        {/* Left Side: Community Image Panel */}
+        <div className="hidden md:flex md:w-1/2 p-12 lg:p-16 flex-col justify-between relative bg-gradient-to-br from-zinc-900 to-[#0f0f0f] border-r border-zinc-800/50">
+          <Link to="/">
+            <div className="relative z-10 flex items-center gap-2">
+              <div className="w-8 h-8 bg-rose-600 rounded-lg flex items-center justify-center text-white font-bold">
+                ሀ
+              </div>
+              <span className="font-black text-xl tracking-tighter text-white">
+                MEMBERSHIP
+              </span>
+            </div>
+          </Link>
 
-          {error && <p className="text-red-400 text-center mb-2">{error}</p>}
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              name="email"
-              type="email"
-              placeholder="Email"
-              value={form.email}
-              onChange={handleChange}
-              className="w-full px-4 py-3 text-black rounded-lg focus:ring-2 focus:ring-blue-600 outline-none"
-            />
-
-            <div className="relative">
-              <input
-                name="password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                value={form.password}
-                onChange={handleChange}
-                className="w-full px-4 py-3 text-black rounded-lg focus:ring-2 focus:ring-blue-600 outline-none"
+          <div className="relative z-10 space-y-8">
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight leading-[1.1] text-white">
+              "Connecting the court, <br />
+              <span className="text-rose-600 text-opacity-80 font-bold italic">strengthen the community."</span>
+            </h2>
+            <div className="flex-1 max-h-[380px] overflow-hidden rounded-[32px] border border-zinc-800 shadow-2xl rotate-[-2deg] hover:rotate-0 transition-transform duration-500">
+              <img
+                src={communityImg}
+                alt="Ethiopian Basketball Community"
+                className="w-full h-full object-cover opacity-90"
               />
-              <div
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-600"
-                onClick={() => setShowPassword(!showPassword)}
+            </div>
+          </div>
+
+          <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.3em]">
+            GTA Hub • Established 2025
+          </div>
+        </div>
+
+        {/* Right Side: Log In Form (The Dark Nucleus Style) */}
+        <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-[#0d0d0d]">
+          <div className="max-w-md mx-auto w-full">
+            <div className="mb-10">
+              <h1 className="text-3xl font-black text-white mb-2 tracking-tight">Welcome back</h1>
+              <p className="text-zinc-500 text-sm font-medium">
+                Log in to manage your sessions and training library.
+              </p>
+            </div>
+
+            {error && (
+              <div className="mb-6 p-4 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-rose-500 text-xs font-bold text-center">
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 ml-1">
+                  Email Address
+                </label>
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="name@example.com"
+                  value={form.email}
+                  onChange={handleChange}
+                  className="w-full px-5 py-4 bg-zinc-900/50 border border-zinc-800 text-white rounded-2xl focus:ring-2 focus:ring-rose-600/20 focus:border-rose-600 outline-none transition-all placeholder:text-zinc-700"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex justify-between items-center ml-1">
+                   <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Password</label>
+                   <a href="#" className="text-[10px] font-bold text-rose-500 hover:text-white transition">Forgot?</a>
+                </div>
+                <div className="relative">
+                  <input
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    value={form.password}
+                    onChange={handleChange}
+                    className="w-full px-5 py-4 bg-zinc-900/50 border border-zinc-800 text-white rounded-2xl focus:ring-2 focus:ring-rose-600/20 focus:border-rose-600 outline-none transition-all placeholder:text-zinc-700"
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-600 hover:text-white transition"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <AiFillEyeInvisible size={20} /> : <AiFillEye size={20} />}
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between ml-1 text-[11px] font-bold">
+                <div className="flex items-center gap-2">
+                  <span className="text-zinc-500 uppercase tracking-wider">Remember details</span>
+                  <button
+                    type="button"
+                    onClick={() => setRememberMe(!rememberMe)}
+                    className={`${
+                      rememberMe ? "bg-rose-600" : "bg-zinc-800"
+                    } relative inline-flex h-5 w-10 cursor-pointer rounded-full transition-colors duration-200 focus:outline-none`}
+                  >
+                    <span
+                      className={`${
+                        rememberMe ? "translate-x-5" : "translate-x-0"
+                      } inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition duration-200`}
+                    />
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-rose-600 hover:bg-rose-700 text-white py-4 rounded-2xl font-black uppercase text-xs tracking-widest transition-all shadow-lg shadow-rose-900/20 disabled:opacity-50 active:scale-[0.98] mt-4"
               >
-                {showPassword ? (
-                  <AiFillEyeInvisible size={20} />
-                ) : (
-                  <AiFillEye size={20} />
-                )}
+                {loading ? "Verifying..." : "Sign In to Hub"}
+              </button>
+            </form>
+
+            <div className="relative my-10">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-zinc-800" />
+              </div>
+              <div className="relative text-[10px] font-black uppercase tracking-[0.2em] text-zinc-600 bg-[#0d0d0d] px-4 mx-auto w-fit">
+                OR
               </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-red-50 hover:bg-yellow-300 hover:text-black transition py-3 rounded-lg text-sm font-medium disabled:opacity-50"
-            >
-              {loading ? "Signing In..." : "Sign In"}
+            <button className="w-full flex items-center justify-center gap-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white py-4 rounded-2xl text-xs font-bold transition active:scale-[0.98]">
+              <FcGoogle size={20} />
+              <span className="uppercase tracking-widest">Continue with Google</span>
             </button>
-          </form>
 
-          <p className="text-white text-center mt-4 text-sm">
-            Don’t have an account?{" "}
-            <a href="/signup" className="text-white hover:underline text-sm">
-              Create one
-            </a>
-          </p>
+            <p className="text-zinc-600 text-center mt-10 text-xs font-medium">
+              New to the community?{" "}
+              <Link
+                to="/signup"
+                className="text-white font-bold hover:text-rose-500 transition underline underline-offset-4"
+              >
+                Join the Family
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };

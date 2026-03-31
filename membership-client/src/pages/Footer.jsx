@@ -101,8 +101,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-zinc-500">
-            &copy; {new Date().getFullYear()} Membership Portal. Built for the
-            GTA.
+            &copy; 2025 Membership Portal. Built for the GTA.
           </p>
           <div className="flex gap-8 text-xs font-medium">
             <Link to="/privacy" className="hover:text-white">

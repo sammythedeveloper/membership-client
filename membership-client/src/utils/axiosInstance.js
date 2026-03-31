@@ -1,7 +1,11 @@
 import axios from "axios";
 
+// Using a fallback to ensure it works even if .env isn't picked up
+const baseURL =
+  process.env.REACT_APP_API_BASE_URL || "http://localhost:5001/api";
+
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL,
+  baseURL: baseURL,
 });
 
 // Automatically attach token to all requests
