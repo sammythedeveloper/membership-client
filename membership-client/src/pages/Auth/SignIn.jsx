@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc"; 
 import axios from "../../utils/axiosInstance";
-import communityImg from "../../assets/wow.png"; 
+import communityImg from "../../assets/wow.png";
 
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -37,7 +36,9 @@ const SignIn = () => {
         replace: true,
       });
     } catch (err) {
-      setError(err.response?.data?.message || "Login failed. Check your details.");
+      setError(
+        err.response?.data?.message || "Login failed. Check your details."
+      );
     } finally {
       setLoading(false);
     }
@@ -47,9 +48,8 @@ const SignIn = () => {
     <div className="min-h-screen bg-[#080808] font-sans text-white flex items-center justify-center p-4 md:p-6 overflow-hidden relative">
       {/* Subtle Ambient Glow like the Landing Page */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-rose-950/10 rounded-full blur-[120px] -z-0" />
-      
+
       <div className="w-full max-w-7xl h-auto md:h-[750px] flex flex-col md:flex-row bg-[#0f0f0f] rounded-[40px] border border-zinc-800/50 shadow-2xl overflow-hidden z-10">
-        
         {/* Left Side: Community Image Panel */}
         <div className="hidden md:flex md:w-1/2 p-12 lg:p-16 flex-col justify-between relative bg-gradient-to-br from-zinc-900 to-[#0f0f0f] border-r border-zinc-800/50">
           <Link to="/">
@@ -66,7 +66,9 @@ const SignIn = () => {
           <div className="relative z-10 space-y-8">
             <h2 className="text-4xl lg:text-5xl font-black tracking-tight leading-[1.1] text-white">
               "Connecting the court, <br />
-              <span className="text-rose-600 text-opacity-80 font-bold italic">strengthen the community."</span>
+              <span className="text-rose-600 text-opacity-80 font-bold italic">
+                strengthen the community."
+              </span>
             </h2>
             <div className="flex-1 max-h-[380px] overflow-hidden rounded-[32px] border border-zinc-800 shadow-2xl rotate-[-2deg] hover:rotate-0 transition-transform duration-500">
               <img
@@ -86,7 +88,9 @@ const SignIn = () => {
         <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-[#0d0d0d]">
           <div className="max-w-md mx-auto w-full">
             <div className="mb-10">
-              <h1 className="text-3xl font-black text-white mb-2 tracking-tight">Welcome back</h1>
+              <h1 className="text-3xl font-black text-white mb-2 tracking-tight">
+                Welcome back
+              </h1>
               <p className="text-zinc-500 text-sm font-medium">
                 Log in to manage your sessions and training library.
               </p>
@@ -115,8 +119,9 @@ const SignIn = () => {
 
               <div className="space-y-2">
                 <div className="flex justify-between items-center ml-1">
-                   <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Password</label>
-                   <a href="#" className="text-[10px] font-bold text-rose-500 hover:text-white transition">Forgot?</a>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">
+                    Password
+                  </label>
                 </div>
                 <div className="relative">
                   <input
@@ -132,14 +137,20 @@ const SignIn = () => {
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-600 hover:text-white transition"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    {showPassword ? <AiFillEyeInvisible size={20} /> : <AiFillEye size={20} />}
+                    {showPassword ? (
+                      <AiFillEyeInvisible size={20} />
+                    ) : (
+                      <AiFillEye size={20} />
+                    )}
                   </button>
                 </div>
               </div>
 
               <div className="flex items-center justify-between ml-1 text-[11px] font-bold">
                 <div className="flex items-center gap-2">
-                  <span className="text-zinc-500 uppercase tracking-wider">Remember details</span>
+                  <span className="text-zinc-500 uppercase tracking-wider">
+                    Remember details
+                  </span>
                   <button
                     type="button"
                     onClick={() => setRememberMe(!rememberMe)}
@@ -164,21 +175,6 @@ const SignIn = () => {
                 {loading ? "Verifying..." : "Sign In to Hub"}
               </button>
             </form>
-
-            <div className="relative my-10">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-zinc-800" />
-              </div>
-              <div className="relative text-[10px] font-black uppercase tracking-[0.2em] text-zinc-600 bg-[#0d0d0d] px-4 mx-auto w-fit">
-                OR
-              </div>
-            </div>
-
-            <button className="w-full flex items-center justify-center gap-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white py-4 rounded-2xl text-xs font-bold transition active:scale-[0.98]">
-              <FcGoogle size={20} />
-              <span className="uppercase tracking-widest">Continue with Google</span>
-            </button>
-
             <p className="text-zinc-600 text-center mt-10 text-xs font-medium">
               New to the community?{" "}
               <Link

@@ -9,7 +9,6 @@ import {
   FiClock,
 } from "react-icons/fi";
 
-// Same image mapping from Dashboard
 import artImg from "../../assets/art.jpg";
 import bookClubImg from "../../assets/bookclub.jpg";
 import basketballImg from "../../assets/basketball.jpg";

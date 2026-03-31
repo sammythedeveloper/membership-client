@@ -16,7 +16,6 @@ export default function MembershipDetailModal({
   const navigate = useNavigate();
   if (!isOpen || !subscription) return null;
 
-  // Formatting dates for the "Pass"
   const startDate = new Date(subscription.start_date).toLocaleDateString(
     "en-US",
     {

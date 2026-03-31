@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
 import axios from "../../utils/axiosInstance";
 import communityImg from "../../assets/wow.png";
 
@@ -182,23 +181,6 @@ const SignUp = () => {
                 {loading ? "Creating Account..." : "Join the Community"}
               </button>
             </form>
-
-            <div className="relative my-8">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-zinc-800" />
-              </div>
-              <div className="relative text-[10px] font-black uppercase tracking-[0.2em] text-zinc-600 bg-[#0d0d0d] px-4 mx-auto w-fit">
-                OR
-              </div>
-            </div>
-
-            <button className="w-full flex items-center justify-center gap-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white py-4 rounded-2xl text-xs font-bold transition active:scale-[0.98]">
-              <FcGoogle size={20} />
-              <span className="uppercase tracking-widest">
-                Sign up with Google
-              </span>
-            </button>
-
             <p className="text-zinc-600 text-center mt-8 text-xs font-medium">
               Already have an account?{" "}
               <Link
