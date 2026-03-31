@@ -1,15 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "../../utils/axiosInstance";
 import AdminSidebar from "../../components/AdminSidebar";
-import {
-  FiTrash2,
-  FiClock,
-  FiCheckCircle,
-  FiAlertCircle,
-  FiFilter,
-  FiUser,
-  FiActivity,
-} from "react-icons/fi";
+import { FiTrash2, FiFilter } from "react-icons/fi";
 
 export default function AdminSubscriptions() {
   const [subscriptions, setSubscriptions] = useState([]);

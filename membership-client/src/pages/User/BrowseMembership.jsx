@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
-import { FiCheck, FiStar, FiZap, FiShield, FiUsers } from "react-icons/fi";
+import { FiCheck, FiUsers } from "react-icons/fi";
 
 const availablePlans = [
   {
