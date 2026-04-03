@@ -63,32 +63,6 @@
 //   },
 // ];
 
-// const communityMentors = [
-//   {
-//     name: "Dawit Tekle",
-//     avatar: "/1.png",
-//     role: "Sports & Wellness Lead",
-//     bio: "Dedicated to building community through physical activity and health education.",
-//   },
-//   {
-//     name: "Sara Selassie",
-//     avatar: "/3.png",
-//     role: "Youth Programs Director",
-//     bio: "Specializes in developing leadership skills for the next generation in Toronto.",
-//   },
-//   {
-//     name: "Yonas Gebre",
-//     avatar: "/2.png",
-//     role: "Community Engagement",
-//     bio: "Focused on networking and professional growth within the Diaspora.",
-//   },
-//   {
-//     name: "Eden Haile",
-//     avatar: "/4.png",
-//     role: "Cultural Coordinator",
-//     bio: "Bringing the beauty of Ethiopian heritage to our local GTA events.",
-//   },
-// ];
 
 // export default function BrowseMembership() {
 //   const [user, setUser] = useState(null);
@@ -246,75 +220,73 @@ import { Check } from "lucide-react";
 const plans = [
   {
     name: "Market Intelligence",
-    basePrice: 50,
+    basePrice: 30,
     desc: "Entry-level access to global macro metadata streams and regulatory reporting feeds.",
     features: [
       "Real-time Macro Feeds",
       "Regulatory Alert API",
       "Market Sentiment Indices",
     ],
-    tier: "GUEST",
   },
   {
     name: "Operational Workflow",
-    basePrice: 225,
+    basePrice: 125,
     desc: "Standardized deployment of departmental accounting and automated trade orchestration.",
     features: [
       "Automated Trade Streams",
       "Workflow Logic Engine",
       "Yield Capture Webhooks",
     ],
-    tier: "BASIC",
   },
   {
     name: "Capital Pipeline",
-    basePrice: 725,
+    basePrice: 250,
     desc: "High-priority infrastructure for accelerated capital deployment and predictive modeling.",
     features: [
       "Priority Execution API",
       "Institutional Alpha Models",
       "Predictive Risk Hooks",
     ],
-    tier: "PRO",
   },
   {
     name: "Treasury Oversight",
-    basePrice: 1500,
+    basePrice: 500,
     desc: "Full-scale governance support for institutional treasury management and resource allocation.",
     features: [
       "Full Institutional API Access",
       "Audit-Ready Compliance Logs",
       "24/7 Dedicated Liquidity Support",
     ],
-    tier: "IMPACT",
   },
 ];
+
+
 
 const ComparisonMatrix = () => {
   const comparisonData = [
     {
-      feature: "Execution Limits", 
+      feature: "Execution Limits",
       guest: "50 ops/hr",
       basic: "500 ops/hr",
       pro: "5,000 ops/hr",
       impact: "Unlimited",
     },
     {
-      feature: "Audit Retention", 
+      feature: "Audit Retention",
       guest: "7 Days",
       basic: "30 Days",
       pro: "90 Days",
       impact: "Permanent",
     },
     {
-      feature: "Service Level", 
+      feature: "Service Level",
       guest: "Self-Serve",
       basic: "48h Response",
       pro: "4h Response",
       impact: "Dedicated Partner",
     },
     {
-      feature: "Institutional Authority", 
+      feature: "Institutional Authority",
       guest: "None",
       basic: "Operational View",
       pro: "Full Executive Vote",
@@ -380,20 +352,36 @@ export default function BrowseMembership() {
   const [loadingPlan, setLoadingPlan] = useState(null);
   const [message, setMessage] = useState("");
   const [user, setUser] = useState(null);
-  const [billingCycle, setBillingCycle] = useState('monthly');
+  const [billingCycle, setBillingCycle] = useState("monthly");
   const navigate = useNavigate();
 
+  // const processedPlans = plans.map((p) => {
+  //   const isAnnual = billingCycle === "annual";
+  //   const displayPrice = isAnnual ? Math.floor(p.basePrice * 0.8) : p.basePrice;
+  //   return {
+  //     ...p,
+  //     activity: planAdapter[p.name],
+  //     displayPrice: `$${displayPrice}`,
+  //     billingSuffix: isAnnual ? "/mo (billed annually)" : "/mo",
+  //   };
+  // });
+const processedPlans = plans.map((p) => {
+  const isAnnual = billingCycle === 'annual';
+  
+  // Transform "Market Intelligence" -> "MARKET_INTELLIGENCE"
+  const baseKey = p.name.toUpperCase().replace(/\s+/g, '_');
+  const activityKey = isAnnual ? `${baseKey}_ANNUAL` : `${baseKey}_MONTHLY`;
+  
+  const annualPrice = Math.floor(p.basePrice * 12 * 0.8);
 
-  const processedPlans = plans.map((plan) => {
-    const isAnnual = billingCycle === 'annual';
-    const displayPrice = isAnnual ? Math.floor(plan.basePrice * 0.8) : plan.basePrice;
-    
-    return {
-      ...plan,
-      displayPrice,
-      billingSuffix: isAnnual ? '/mo (billed annually)' : '/mo'
-    };
-  });
+  return {
+    ...p,
+    activity: activityKey, // Now this will be "MARKET_INTELLIGENCE_MONTHLY", etc.
+    displayPrice: isAnnual ? `$${annualPrice}` : `$${p.basePrice}`,
+    billingSuffix: isAnnual ? '/year (billed upfront)' : '/mo',
+    savings: isAnnual ? `Save $${(p.basePrice * 12) - annualPrice} annually` : null
+  };
+});
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -401,17 +389,41 @@ export default function BrowseMembership() {
     else setUser(userData);
   }, [navigate]);
 
+  // const handleSubscribe = async (plan) => {
+  //   console.log("Sending payload:", {
+  //     activity: plan.activity,
+  //     duration: "1",
+  //     billingCycle: billingCycle,
+  //   });
+
+  //   setLoadingPlan(plan.activity);
+  //   try {
+  //     const res = await axios.post("/subscription/checkout", {
+  //       activity: plan.activity, // This should be "Free trial", "Beginner players plan", etc.
+  //       duration: "1",
+  //       billingCycle: billingCycle,
+  //     });
+  //     window.location.href = res.data.url;
+  //   } catch (err) {
+  //     // This will tell us exactly why the backend rejected it
+  //     console.error("Full Error Response:", err.response?.data);
+  //   } finally {
+  //     setLoadingPlan(null);
+  //   }
+  // };
   const handleSubscribe = async (plan) => {
-    setLoadingPlan(plan.activity);
-    setMessage("");
+    setLoadingPlan(plan.name);
+    
     try {
       const res = await axios.post("/subscription/checkout", {
-        activity: plan.activity,
-        duration: plan.duration,
+        activity: plan.activity, // This now sends the dynamic key
+        duration: billingCycle === 'annual' ? "12" : "1",
+        billingCycle: billingCycle,
       });
+      
       window.location.href = res.data.url;
     } catch (err) {
-      setMessage("System busy. Please try again.");
+      console.error("Subscription error:", err.response?.data);
     } finally {
       setLoadingPlan(null);
     }
@@ -459,7 +471,7 @@ export default function BrowseMembership() {
           </div>
         </div>
         {/* Pricing Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 border border-zinc-200 dark:border-zinc-900 bg-zinc-100 dark:bg-[#050505]">
+        {/* <div className="grid grid-cols-1 md:grid-cols-4 gap-6 border border-zinc-200 dark:border-zinc-900 bg-zinc-100 dark:bg-[#050505]">
           {processedPlans.map((plan) => (
             <div
               key={plan.name}
@@ -494,6 +506,44 @@ export default function BrowseMembership() {
               </button>
             </div>
           ))}
+        </div> */}
+        <div className="grid grid-cols-1 md:grid-cols-4 border border-zinc-200 dark:border-zinc-900 bg-white dark:bg-[#050505]">
+          {processedPlans.map((plan) => (
+            <div
+              key={plan.name}
+              className="p-10 border-b md:border-b-0 md:border-r last:border-r-0 border-zinc-200 dark:border-zinc-900 flex flex-col"
+            >
+              <h3 className="text-lg font-black uppercase tracking-tighter mb-2">
+                {plan.name}
+              </h3>
+              <div className="text-4xl font-black mb-6">
+                {plan.displayPrice}
+                <span className="text-xs text-zinc-500 font-medium ml-1">
+                  {plan.billingSuffix}
+                </span>
+              </div>
+              <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-8 h-10">
+                {plan.desc}
+              </p>
+              <ul className="md:pt-10 space-y-4 mb-10 flex-grow">
+                {plan.features.map((f) => (
+                  <li
+                    key={f}
+                    className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest"
+                  >
+                    <Check className="w-3 h-3 text-rose-600" /> {f}
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={() => handleSubscribe(plan)}
+                disabled={loadingPlan === plan.activity}
+                className="w-full py-4 border border-zinc-300 dark:border-zinc-700 font-black text-[10px] uppercase tracking-widest hover:bg-black hover:text-white transition-all"
+              >
+                {loadingPlan === plan.activity ? "Verifying..." : "Select Plan"}
+              </button>
+            </div>
+          ))}
         </div>
         {/* Engineering Team/Mentors (Rebranded as 'System Architects') */}
         <section className="mt-32">
@@ -501,7 +551,7 @@ export default function BrowseMembership() {
         </section>
         <section className="mt-32">
           <h2 className="text-[10px] font-bold tracking-[0.4em] uppercase text-zinc-500 mb-12 text-center">
-            System Architects 
+            System Architects
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {/* Mentor cards using the same grayscale hover technique */}
