@@ -5,9 +5,9 @@ import { Trash2, Filter } from "lucide-react";
 
 export default function AdminSubscriptions() {
   const [subscriptions, setSubscriptions] = useState([]);
-  const [setLoading] = useState(true);
-  const [filterType, setFilterType] = useState("all"); // "all", "monthly", "annual"
-  const [ setConfirmModal] = useState({
+  const [loading, setLoading] = useState(true);
+  const [filterType, setFilterType] = useState("all");
+  const [confirmModal, setConfirmModal] = useState({
     show: false,
     subId: null,
   });
