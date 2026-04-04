@@ -19,10 +19,8 @@ export default function Contact() {
   };
 
   return (
-    // 1. Min-height screen + flex-col ensures layout stretches to fill window
+  
     <div className="min-h-screen flex flex-col bg-white dark:bg-black text-black dark:text-white transition-colors duration-500">
-      
-      {/* 2. flex-grow pushes the footer to the bottom */}
       <main className="flex-grow py-24 px-6">
         <div className="max-w-3xl mx-auto">
           {/* Header */}
@@ -103,7 +101,7 @@ export default function Contact() {
                 animate={{ opacity: 1 }}
                 className="text-[9px] font-black uppercase tracking-[0.3em] text-emerald-500 mt-6 text-center"
               >
-                /// STATUS: TRANSMISSION SUCCESSFUL
+                STATUS: TRANSMISSION SUCCESSFUL
               </motion.p>
             )}
           </form>
@@ -116,7 +114,7 @@ export default function Contact() {
         </div>
       </main>
 
-      {/* Footer is now correctly pushed to the absolute bottom */}
+      {/* Footer */}
       <Footer />
     </div>
   );

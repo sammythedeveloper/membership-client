@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "../../utils/axiosInstance";
 import AdminSidebar from "../../components/AdminSidebar";
-import { Trash2, Filter } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 export default function AdminSubscriptions() {
   const [subscriptions, setSubscriptions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [deletingId, setDeletingId] = useState(null);
-  const [filterType, setFilterType] = useState("all"); // "all", "monthly", "annual"
+  const [setDeletingId] = useState(null);
   const [confirmModal, setConfirmModal] = useState({
     show: false,
     subId: null,

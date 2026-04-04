@@ -136,7 +136,6 @@ const ComparisonMatrix = () => {
 
 export default function BrowseMembership() {
   const [loadingPlan, setLoadingPlan] = useState(null);
-  const [message, setMessage] = useState("");
   const [user, setUser] = useState(null);
   const [billingCycle, setBillingCycle] = useState("monthly");
   const navigate = useNavigate();

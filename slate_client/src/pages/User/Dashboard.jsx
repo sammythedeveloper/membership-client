@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "../../utils/axiosInstance";
 import Navbar from "../../components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
-import { Database, Zap, ShieldCheck, ArrowRight } from "lucide-react";
+import { Database,ArrowRight } from "lucide-react";
 import DetailModal from "./DetailModal";
 import Footer from "../Footer";
 
