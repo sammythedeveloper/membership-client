@@ -77,10 +77,10 @@ export default function AdminSubscriptions() {
           </div>
         </header>
 
-        <div className="border border-zinc-900 bg-[#050505]">
+        <div className="border border-zinc-200 dark:border-zinc-900 overflow-x-auto">
           <table className="w-full text-left min-w-[600px]">
-            <thead>
-              <tr className="border-b border-zinc-900">
+            <thead className="bg-zinc-50 dark:bg-zinc-900/50">
+              <tr className="border-b border-zinc-200 dark:border-zinc-900">
                 <th className="px-8 py-4 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-600">
                   Subscriber
                 </th>

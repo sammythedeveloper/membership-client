@@ -154,12 +154,10 @@ export default function AdminDashboard() {
           </section>
           <section>
             <h3 className="text-[10px] font-bold tracking-[0.3em] uppercase text-zinc-500 mb-8">
-              Live Gateway Audit
+              Live Data
             </h3>
             <div className="border border-zinc-200 dark:border-zinc-900 overflow-x-auto">
               <table className="w-full text-left min-w-[600px]">
-                {" "}
-                {/* Ensures table doesn't squish */}
                 <thead className="bg-zinc-50 dark:bg-zinc-900/50">
                   <tr className="border-b border-zinc-200 dark:border-zinc-900">
                     <th className="p-4 md:p-6 text-[9px] uppercase tracking-widest text-zinc-500">
@@ -176,7 +174,7 @@ export default function AdminDashboard() {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-200 dark:divide-zinc-900">
+                <tbody className="divide-y dark:divide-zinc-900">
                   {subscriptions.map((sub) => (
                     <tr
                       key={sub.id}
