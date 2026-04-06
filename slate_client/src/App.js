@@ -4,7 +4,6 @@ import SignIn from "./pages/Auth/SignIn";
 import SignUp from "./pages/Auth/SignUp";
 import Dashboard from "./pages/User/Dashboard";
 import BrowseMembership from "./pages/User/BrowseMembership";
-import CancelSubscription from "./pages/User/CancelSubscription";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminUsers from "./pages/Admin/AdminUsers";
 import AdminSubscriptions from "./pages/Admin/AdminSubscription";
@@ -48,14 +47,6 @@ export default function App() {
                 element={
                   <RoleRoute requiredRole="user">
                     <BrowseMembership />
-                  </RoleRoute>
-                }
-              />
-              <Route
-                path="/cancel-subscription"
-                element={
-                  <RoleRoute requiredRole="user">
-                    <CancelSubscription />
                   </RoleRoute>
                 }
               />
