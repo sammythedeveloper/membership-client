@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { Database, Zap, ShieldCheck, ArrowRight } from "lucide-react";
 import DetailModal from "./DetailModal";
+import Footer from "../Footer";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -108,6 +109,7 @@ export default function Dashboard() {
         onClose={() => setSelectedSub(null)}
         subscription={selectedSub}
       />
+      <Footer/>
     </div>
   );
 }

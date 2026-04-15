@@ -3,6 +3,7 @@ import axios from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import { Check } from "lucide-react";
+import Footer from "../Footer";
 
 const plans = [
   {
@@ -289,6 +290,7 @@ export default function BrowseMembership() {
           </div>
         </section>
       </main>
+      <Footer/>
     </div>
   );
 }
