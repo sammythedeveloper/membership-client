@@ -53,13 +53,13 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/wellness" className="hover:text-rose-500 transition">
+                <Link to="/signin" className="hover:text-rose-500 transition">
                   Wellness Hub
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/membership"
+                  to="/signin"
                   className="hover:text-rose-500 transition"
                 >
                   Plans & Pricing
@@ -75,23 +75,18 @@ const Footer = () => {
             </h4>
             <ul className="space-y-4 text-sm">
               <li>
-                <Link to="/about" className="hover:text-rose-500 transition">
+                <Link to="/our-story" className="hover:text-rose-500 transition">
                   Our Story
                 </Link>
               </li>
               <li>
-                <Link to="/events" className="hover:text-rose-500 transition">
+                <Link to="/" className="hover:text-rose-500 transition">
                   Upcoming Events
                 </Link>
               </li>
               <li>
-                <Link to="/mentors" className="hover:text-rose-500 transition">
-                  Meet the Coaches
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" className="hover:text-rose-500 transition">
-                  Common Questions
+                <Link to="/FAQs" className="hover:text-rose-500 transition">
+                  FAQs
                 </Link>
               </li>
             </ul>
@@ -107,7 +102,7 @@ const Footer = () => {
             <Link to="/privacy" className="hover:text-white">
               Privacy Policy
             </Link>
-            <Link to="/terms" className="hover:text-white">
+            <Link to="/Terms" className="hover:text-white">
               Terms of Service
             </Link>
           </div>

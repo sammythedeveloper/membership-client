@@ -24,7 +24,6 @@ export default function Landing() {
               <Link to="/About">Community</Link>
               <Link to="/About">Wellness</Link>
               <Link to="/About">Open Runs</Link>
-      
             </div>
           </div>
 
@@ -39,7 +38,7 @@ export default function Landing() {
               to="/signup"
               className="px-6 py-2.5 text-sm font-bold bg-rose-600 text-white rounded-full hover:bg-rose-700 transition shadow-lg shadow-rose-900/40"
             >
-              Join 
+              Join
             </Link>
           </div>
 
@@ -75,7 +74,7 @@ export default function Landing() {
         {isOpen && (
           <div className="absolute top-full left-0 w-full bg-[#0d0d0d] border-b border-zinc-800 p-6 flex flex-col gap-6 md:hidden animate-in fade-in slide-in-from-top-4 duration-300">
             <div className="flex flex-col gap-4 text-zinc-400 font-medium">
-            <Link to="/About">Community</Link>
+              <Link to="/About">Community</Link>
               <Link to="/About">Wellness</Link>
               <Link to="/About">Open Runs</Link>
             </div>
@@ -202,29 +201,35 @@ export default function Landing() {
               </button>
             </div>
           </div>
-
-          {/* Floating Wellness Card - Desktop Only */}
-          <div className="hidden lg:block absolute -top-12 -left-20 bg-white p-6 rounded-[28px] shadow-2xl z-20 w-60 rotate-[-4deg] transition hover:rotate-0 duration-500 group">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-rose-100 rounded-full flex items-center justify-center text-rose-600">
-                <svg
-                  className="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
-                </svg>
-              </div>
-              <span className="text-[11px] font-black text-zinc-900 uppercase tracking-widest">
-                Wellness Tip
-              </span>
-            </div>
-            <p className="text-sm font-bold text-zinc-800 leading-tight">
-              Hydration is key for the 6AM runs. Drink 500ml before tip-off.
-            </p>
-          </div>
         </div>
       </main>
+      {/* Amharic Section */}
+      <section className="w-full border-t border-zinc-900 bg-[#0b0b0b] py-20 px-6 md:px-20">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-white">
+            ማህበረሰብ • አንድነት • እድገት
+          </h2>
+
+          <p className="text-lg md:text-xl text-zinc-300 leading-relaxed font-medium">
+            ይህ መድረክ ለኢትዮጵያውያን ማህበረሰብ በቶሮንቶ እና አካባቢው እንዲገናኙ፣ እንዲያድጉ እና እንዲደጋገፉ
+            የተፈጠረ ነው።
+          </p>
+
+          <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
+            በመሮጥ፣ በመሄድ እና በስፖርት እንቅስቃሴዎች እንገናኛለን፤ ጤናችንን እናሻሽላለን እና ጠንካራ ማህበር
+            እንገንባለን።
+          </p>
+
+          <div className="pt-6">
+            <Link
+              to="/signup"
+              className="inline-block bg-rose-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-rose-700 transition"
+            >
+              ይቀላቀሉ
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

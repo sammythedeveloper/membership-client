@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import axios from "../../utils/axiosInstance";
-import communityImg from "../../assets/wow.png";
+import communityImg from "../../assets/readingbook.png";
 
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });

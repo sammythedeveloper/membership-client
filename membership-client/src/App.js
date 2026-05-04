@@ -12,6 +12,13 @@ import RoleRoute from "./components/RoleRoute";
 import AdminSettings from "./pages/Admin/AdminSettings";
 import About from "./pages/User/About";
 import Footer from "./pages/Footer";
+import FAQ from "./pages/DetailPage/FAQ";
+import TrainingPrograms from "./pages/DetailPage/TrainingPrograms";
+import Community from "./pages/DetailPage/Community";
+import Privacy from "./pages/DetailPage/Privacy";
+import Contact from "./pages/DetailPage/Contact";
+import Terms from "./pages/DetailPage/Terms";
+import OurStory from "./pages/DetailPage/Story";
 
 export default function App() {
   return (
@@ -25,6 +32,13 @@ export default function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/FAQs" element={<FAQ />} />
+            <Route path="/Programs" element={<TrainingPrograms />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/Contact" element={<Contact />} />
+            <Route path="/Terms" element={<Terms />} />
+            <Route path="/our-story" element={<OurStory />} />
 
             {/* User Dashboard */}
             <Route
