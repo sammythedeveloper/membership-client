@@ -15,7 +15,7 @@ export default function Footer() {
             >
               SLATE
             </Link>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-normal tracking-wide">
+            <p className="text-md   text-zinc-500 dark:text-zinc-400 leading-relaxed font-normal tracking-wide">
               Slate provides the scalable infrastructure required to manage
               complex recurring revenue cycles, offering real-time ledger
               integrity and automated event orchestration for modern SaaS
@@ -51,7 +51,7 @@ export default function Footer() {
           </div>
 
           {/* Navigation Matrix */}
-          <div className="grid grid-cols-2 gap-x-16 gap-y-4 text-[10px] font-bold tracking-[0.25em] uppercase text-zinc-500 dark:text-zinc-400">
+          <div className="grid grid-cols-2 gap-x-16 gap-y-4 text-[12px] font-bold tracking-[0.25em] uppercase text-zinc-500 dark:text-zinc-400">
             <Link
               to="/architecture"
               className="hover:text-black dark:hover:text-white transition-colors"
@@ -92,7 +92,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar: Engineering Stack Credits */}
-        <div className="pt-8 border-t border-zinc-200 dark:border-zinc-900/40 flex flex-col sm:flex-row justify-between items-center gap-4 text-[9px] font-bold tracking-[0.2em] uppercase text-zinc-400 dark:text-zinc-600">
+        <div className="pt-8 border-t border-zinc-200 dark:border-zinc-900/40 flex flex-col sm:flex-row justify-between items-center gap-4 text-[12px] font-bold tracking-[0.2em] uppercase text-zinc-400 dark:text-zinc-600">
           <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center sm:justify-start">
             <span>PCI-COMPLIANT ARCHITECTURE</span>
             <span>•</span>
