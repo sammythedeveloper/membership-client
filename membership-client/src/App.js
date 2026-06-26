@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Landing from "./pages/Landing";
 import SignIn from "./pages/Auth/SignIn";
 import SignUp from "./pages/Auth/SignUp";
@@ -21,13 +22,27 @@ import Terms from "./pages/DetailPage/Terms";
 import OurStory from "./pages/DetailPage/Story";
 
 export default function App() {
+  const [isDark, setIsDark] = useState(() => {
+    // Default to dark mode on first load
+    return localStorage.getItem("theme") !== "light";
+  });
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark]);
   return (
     <Router>
       {/* 1. Wrap everything in a div so we can use Flexbox to keep footer at the bottom */}
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen bg-white dark:bg-black transition-colors duration-300">
         {/* 2. Main content area grows to push the footer down */}
         <main className="flex-grow">
           <Routes>
+          <Route path="/" element={<Landing isDark={isDark} setIsDark={setIsDark} />} />
             {/* Public Routes */}
             <Route path="/" element={<Landing />} />
             <Route path="/signin" element={<SignIn />} />

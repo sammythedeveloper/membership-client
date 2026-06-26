@@ -1,115 +1,125 @@
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="w-full bg-[#050505] text-zinc-400 pt-20 pb-10 border-t border-zinc-900">
-      <div className="max-w-7xl mx-auto px-6 md:px-20">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          {/* Brand Column */}
-          <div className="col-span-1 md:col-span-1 space-y-6">
-            <div className="flex items-center gap-2 text-white font-black tracking-tighter text-xl">
-              <Link
-                to="/"
-                className="text-xl md:text-2xl font-black tracking-tighter flex items-center gap-3 text-rose-500"
-              >
-                <div className="w-8 h-8 bg-rose-600 rounded-lg flex items-center justify-center text-white text-sm">
-                  ሀ
-                </div>
-                <span className="inline-block text-sm ">MEMBERSHIP</span>
-              </Link>
-            </div>
-            <p className="text-sm leading-relaxed">
-              Strengthening the Ethiopian community in the GTA through
-              basketball, wellness, and collective growth.
+    // Updated background and border colors for theme-awareness
+    <footer className="w-full bg-zinc-100 dark:bg-[#030303] text-zinc-600 dark:text-zinc-500 pt-24 pb-12 border-t border-zinc-200 dark:border-zinc-900/60 transition-colors duration-500 font-sans">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        {/* Top Section */}
+        <div className="flex flex-col md:flex-row justify-between items-start gap-12 pb-20">
+          {/* Brand & Mission Statement */}
+          <div className="space-y-6 max-w-sm">
+            <Link
+              to="/"
+              className="text-xl font-black tracking-[0.2em] text-black dark:text-white transition-opacity hover:opacity-80 block"
+            >
+              SLATE
+            </Link>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-normal tracking-wide">
+              Slate provides the scalable infrastructure required to manage
+              complex recurring revenue cycles, offering real-time ledger
+              integrity and automated event orchestration for modern SaaS
+              platforms.
             </p>
-            <div className="flex gap-4">
-              {/* Simple Social Icons Placeholder */}
-              <div className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:border-rose-500 transition cursor-pointer">
-                <span className="text-xs">IG</span>
-              </div>
-              <div className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:border-rose-500 transition cursor-pointer">
-                <span className="text-xs">TW</span>
-              </div>
+
+            <div className="flex gap-6 text-[10px] font-bold tracking-[0.2em] text-zinc-500 dark:text-zinc-400 uppercase pt-2">
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-black dark:hover:text-white transition-colors"
+              >
+                GH
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-black dark:hover:text-white transition-colors"
+              >
+                LI
+              </a>
+              <a
+                href="https://docs.slate.app"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-black dark:hover:text-white transition-colors"
+              >
+                API
+              </a>
             </div>
           </div>
 
-          {/* Links: Platform */}
-          <div>
-            <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-6">
-              Platform
-            </h4>
-            <ul className="space-y-4 text-sm">
-              <li>
-                <Link to="/programs" className="hover:text-rose-500 transition">
-                  Training Programs
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/community"
-                  className="hover:text-rose-500 transition"
-                >
-                  Community Runs
-                </Link>
-              </li>
-              <li>
-                <Link to="/signin" className="hover:text-rose-500 transition">
-                  Wellness Hub
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/signin"
-                  className="hover:text-rose-500 transition"
-                >
-                  Plans & Pricing
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Links: Community */}
-          <div>
-            <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-6">
-              Community
-            </h4>
-            <ul className="space-y-4 text-sm">
-              <li>
-                <Link to="/our-story" className="hover:text-rose-500 transition">
-                  Our Story
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="hover:text-rose-500 transition">
-                  Upcoming Events
-                </Link>
-              </li>
-              <li>
-                <Link to="/FAQs" className="hover:text-rose-500 transition">
-                  FAQs
-                </Link>
-              </li>
-            </ul>
+          {/* Navigation Matrix */}
+          <div className="grid grid-cols-2 gap-x-16 gap-y-4 text-[10px] font-bold tracking-[0.25em] uppercase text-zinc-500 dark:text-zinc-400">
+            <Link
+              to="/architecture"
+              className="hover:text-black dark:hover:text-white transition-colors"
+            >
+              System Architecture
+            </Link>
+            <Link
+              to="/dashboard"
+              className="hover:text-black dark:hover:text-white transition-colors"
+            >
+              Client Portal
+            </Link>
+            <Link
+              to="/schema"
+              className="hover:text-black dark:hover:text-white transition-colors"
+            >
+              Database Schema
+            </Link>
+            <Link
+              to="/admin"
+              className="hover:text-black dark:hover:text-white transition-colors"
+            >
+              Admin Governance
+            </Link>
+            <Link
+              to="/webhooks"
+              className="hover:text-black dark:hover:text-white transition-colors"
+            >
+              Event Logs
+            </Link>
+            <Link
+              to="/compliance"
+              className="hover:text-black dark:hover:text-white transition-colors"
+            >
+              Compliance
+            </Link>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-zinc-500">
-            &copy; 2025 Membership Portal. Built for the GTA.
-          </p>
-          <div className="flex gap-8 text-xs font-medium">
-            <Link to="/privacy" className="hover:text-white">
-              Privacy Policy
-            </Link>
-            <Link to="/Terms" className="hover:text-white">
-              Terms of Service
-            </Link>
+        {/* Bottom Bar: Engineering Stack Credits */}
+        <div className="pt-8 border-t border-zinc-200 dark:border-zinc-900/40 flex flex-col sm:flex-row justify-between items-center gap-4 text-[9px] font-bold tracking-[0.2em] uppercase text-zinc-400 dark:text-zinc-600">
+          <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center sm:justify-start">
+            <span>PCI-COMPLIANT ARCHITECTURE</span>
+            <span>•</span>
+            <span>ATOMIC LEDGERS</span>
+            <span>•</span>
+            <span>RESTFUL API SERVICES</span>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+            <span>© 2025 SLATE</span>
+            <div className="flex gap-4">
+              <Link
+                to="/privacy"
+                className="hover:text-black dark:hover:text-white transition-colors"
+              >
+                PRIVACY
+              </Link>
+              <Link
+                to="/terms"
+                className="hover:text-black dark:hover:text-white transition-colors"
+              >
+                TERMS
+              </Link>
+            </div>
           </div>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
