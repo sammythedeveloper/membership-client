@@ -3,7 +3,7 @@ import axios from "axios";
 // Using a fallback to ensure it works even if .env isn't picked up
 const baseURL =
   "http://localhost:5001/api";
-  // process.env.REACT_APP_API_BASE_URL ||
+  process.env.REACT_APP_API_BASE_URL ||
 
 const instance = axios.create({
   baseURL: baseURL,
